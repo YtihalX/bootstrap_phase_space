@@ -1,0 +1,11 @@
+*.csv
+main
+text
+*.bbl
+*.aux
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.gz
