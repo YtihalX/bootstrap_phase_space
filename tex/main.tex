@@ -148,14 +148,22 @@ here we define two auxiliary matrices $\bm{\mathcal{M}}_{ij}^0 = (B^*)^j (A^*)^i
     \bm{\mathcal{M}} \succeq 0
 \end{equation}
 
-\subsection{methodology framework}
+\subsection{Recusion Formula}
+Taking $\mathcal{O}$ as $x^m p^n$ and substituting Hamiltonian\eqref{eq:hamiltonian} into \eqref{eq:beq0} and \eqref{eq:beq1}, we immediately obtain
+\begin{align}
+    \text{recursion formula here} \label{eq:recursion}
+\end{align}
 
-\subsection{Double Well Potential}
+\subsection{Methodology Framework}
+With the recursion formula\eqref{eq:recursion} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. Doing so over all the possible initial values can produce the allowed regions restricted by positivity constraint. 
+
+\section{Numerical examples}
+\subsection {Double Well Potential}
 The Hamiltonian of a double well potential can be written as
 \begin{equation}
     H = p^2 - x^2 + x^4
 \end{equation}
-here we consider the observable $\mathcal{O} = x^m p^n$, substitute it as well as the Hamiltonian into \eqref{eq:beq0} and \eqref{eq:beq1}, we can obtain two recursion formulas
+taking $M = 2$ and with \eqref{eq:recursion} we have
 \begin{equation}
     2(2n + m)\braket{x^{m + 3} p^{n - 1}} = 2(m + n)\braket{x^{m + 1} p^{n - 1}} + 2mE\braket{x^{m - 1} p^{n - 1}} \label{eq:recur0}
 \end{equation}
@@ -166,7 +174,7 @@ here we consider the observable $\mathcal{O} = x^m p^n$, substitute it as well a
 %    \braket{Hx^m p^n} = E\braket{x^m p^n} =&\notag \\ &\braket{x^m p^{n + 2}} - \braket{x^{m + 2} p^n}\notag \\ &+ \braket{x^{m + 4} p^n} \label{eq:recur1}
 %\end{align}
 \begin{equation}
-    \braket{Hx^m p^n} = E\braket{x^m p^n} = \braket{x^m p^{n + 2}} - \braket{x^{m + 2} p^n}\notag + \braket{x^{m + 4} p^n} \label{eq:recur1}
+    \braket{Hx^m p^n} = E\braket{x^m p^n} = \braket{x^m p^{n + 2}} - \braket{x^{m + 2} p^n} + \braket{x^{m + 4} p^n} \label{eq:recur1}
 \end{equation}
 plus $\braket{\{H, x^m\}} = 0$, we get
 \begin{equation}
@@ -196,7 +204,8 @@ In constrast with \cite{Nakayama_2022}, our result shows no peninsula in where $
 
 Like Nakayama has mentioned, $\braket{x}$ doesn't have to be zero in classical mechanics, but this method does produce a narrow region upon the assumption \eqref{eq:recur3}. So we then study the $\braket{x}$ and $\braket{x^3}$ with fixed $E$ and $\braket{x^2}$ using the $\braket{x^m p^n}$ bootstrap program, which, still turns out to be a line in Fig.~\ref{fig:xx}.
 
-\section{Numerical examples}
+\subsection{Coulomb Potential and Harmonic Oscillator}
+
 
 \section{Conclusions}
 
