@@ -10,18 +10,18 @@
 using namespace ::std;
 
 #define NUM_THREADS 12
-#define NUM_X 10000
-#define NUM_E 10000
-#define SIZE_MAT 9
+#define NUM_X 20000
+#define NUM_E 20000
+#define SIZE_MAT 4
 #define DEBUG_THREAD 1
 
 void *routine(void *arg);
-void *toda_routine(void *arg);
 void linspace(double *x, double start, double end, uint64_t len);
 bool double_well(double E, double xsq, uint64_t size);
-bool toda(double E, double ex, uint64_t size);
 bool double_well_single(double E, double xsq, uint64_t size);
 bool double_well_fixed(double x1, double x3, uint64_t size);
+bool toda(double E, double ex, uint64_t size);
+bool toda_single(double E, double ex, uint64_t size);
 
 struct ThreadArg {
     bool (*model)(double, double, uint64_t);
@@ -37,12 +37,12 @@ struct ThreadArg {
 int main() {
     array<double, NUM_X> y_parameter;
     array<double, NUM_E> x_parameter;
-    linspace(y_parameter.data(), 0., 0.5, y_parameter.size());
-    linspace(x_parameter.data(), -0.28, 0.3, x_parameter.size());
+    linspace(x_parameter.data(), 0., 10., x_parameter.size());
+    linspace(y_parameter.data(), 0., 10., y_parameter.size());
     // printf("%f, %f\n", x_range[124], x_range.back());
 
-    vector<double> y_param_allowed[NUM_THREADS];
     vector<double> x_param_allowed[NUM_THREADS];
+    vector<double> y_param_allowed[NUM_THREADS];
 
     pthread_t threads[NUM_THREADS];
     struct ThreadArg pargs[NUM_THREADS];
@@ -57,7 +57,7 @@ int main() {
         pargs[i].x_param_allowed = x_param_allowed + i;
         pargs[i].y_param_allowed = y_param_allowed + i;
         pargs[i].thread_id = i;
-        pargs[i].model = &double_well_single;
+        pargs[i].model = &toda;
 
         if (pthread_create(threads + i, NULL, routine, (void *)(pargs + i)) != 0) {
             perror("pthread creation error");
@@ -86,13 +86,13 @@ int main() {
         length += y_param_allowed[i].size();
     }
     // printf("length: %lu\n", length);
-    vector<double> y_axis;
     vector<double> x_axis;
-    y_axis.reserve(length);
+    vector<double> y_axis;
     x_axis.reserve(length);
+    y_axis.reserve(length);
     for (int i = 0; i < NUM_THREADS; i++) {
-        y_axis.insert(y_axis.end(), y_param_allowed[i].begin(), y_param_allowed[i].end());
         x_axis.insert(x_axis.end(), x_param_allowed[i].begin(), x_param_allowed[i].end());
+        y_axis.insert(y_axis.end(), y_param_allowed[i].begin(), y_param_allowed[i].end());
     }
 
     FILE *data = fopen("data.csv", "w");
@@ -287,6 +287,25 @@ bool toda(double E, double ex, uint64_t size) {
     }
     for (uint64_t i = 0; i < xlen; i++) free(xp[i]);
     free(xp);
+    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    return solver.eigenvalues().minCoeff() >= 0;
+}
+
+bool toda_single(double E, double ex, uint64_t size) {
+    double *x = (double *)malloc((2*size - 1)*sizeof(double));
+    x[0] = 1.;
+    x[1] = ex;
+    for (int64_t i = 2; i < 2*size - 1; i++) {
+        x[i] = (2*E*(i - 1)*x[i - 1] + (- 2*i + 3)*x[i - 2])/(2*i - 1);
+    }
+    Eigen::MatrixXd mat(size, size);
+    for (uint64_t i = 0; i < size; i++) {
+        for (uint64_t j = i; j < size; j++) {
+            mat(i, j) = x[i + j];
+            mat(j, i) = x[i + j];
+        }
+    }
+    free(x);
     Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }

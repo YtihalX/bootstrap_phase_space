@@ -20,7 +20,7 @@
 % Choose pra, prb, prc, prd, pre, prl, prstab, prstper, or rmp for journal
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showkeys' option to make keywords appear
-\documentclass[aps,preprint,amsmath, amssymb]{revtex4-2}
+\documentclass[aps,prl, preprint,amsmath, amssymb]{revtex4-2}
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-2}
 %\documentclass[aps,prl,reprint,groupedaddress]{revtex4-2}
 \usepackage{hyperref}
@@ -76,7 +76,8 @@
 
 \begin{abstract}
 % insert abstract here
-    The bootstrap method which has been studied under many quantum mechanical models turns out to be feasible in microcanonical ensemble as well. In this paper we report a method as a improvement to [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)].
+    % The bootstrap method which has been studied under many quantum mechanical models turns out to be feasible in microcanonical ensemble as well. In this paper we report a method as a improvement to [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)].
+    The bootstrap method which has been studied under many quantum mechanical models turns out feasible in microcanonical ensemble as well. While the approach in [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)] produces a sector when Energy is negative, in this paper we report a method that has stronger constraints thus resulting in a smaller region. We also study other models to demonstrate the effectiveness of our method.
 \end{abstract}
 
 % insert suggested keywords - APS authors don't need to do this
@@ -90,13 +91,21 @@
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
-The bootstrap method aims at solving a system with its fundamental constraints, the so called positivity constraints. Although widely used in quantum mechanics, one can also apply the method into microcanonical ensembles which can be seen as classical correspondence to the quantum mechanical case when $\hbar \to 0$. Nakayama first introduced this method into the classical scenario~\cite{Nakayama_2022}, but he mentioned a peninsula in $ E < 0$ which doesn't converge even for stronger constraints. In our work, we use both position $x$ and momentum $p$ in the phase space to bootstrap, we can see the peninsula shrinks vastly compared to the $x$ only bootstrap program.
+Bootstrap, a novel yet promising method has been studied in quantum mechanics recently, is a way to utilize the very general self-consistency condition and solve the system numerically~\cite{Han_2020}\cite{Bhattacharya:2021btd}\cite{Berenstein:2021loy}, many have reported the accuracy and high precision of the method. And in some case the bootstrap evolves into Dirac's ladder operator approach and can be solved analytically, suggesting some underlying mechanism of this method~\cite{Aikawa:2021qbl}.
 
-\section{Bootstrapping Method}
+Although widely studied in quantum mechanics, one can also apply the method into microcanonical ensembles as the fundamental relations of bootstrap are still applicable and have their classical correspondence \eqref{eq:beq0}\eqref{eq:beq1}\eqref{eq:pos} as $\hbar \to 0$. 
+
+Nakayama~\cite{Nakayama_2022} first introduced this method into the classical scenario, despite reporting the feasibility of the approach, when bootstrapping the double well potential he mentioned a peninsula in $ E < 0$ which doesn't converge even for larger bootstrap matrices. In this paper, we use a different approach that incorporates more information in phase space and thus exhibiting a much stronger constraint, we will see that the result of double well bootstrap in phase space cancels the sector region in $E < 0$ compared to the $x$ only bootstrap.
+
+We also investigate coulomb potential, a harmonic oscillator and a non relativistic toda model, the first two can be solved analytically via the bootstrap approach which, however, are trivial cases. As for the non relativistic toda model, our approach in phase space once again demonstrates more powerful restriction, maybe over powerful that we can merely see few points in the result if the sample isn't big enough.
+
+Yet a stronger constraint our approach may have, it still cannot converge to the exact solution in some places, like the non relativistic toda model. Not to mention that our approach consumes much more computing power, the size of our bootstrap matrix is ${O}(n^4)$. But the benifit is that we can easily achieve high precision when the result converges.
+
+\section{Microcanonical ensemble bootstrap}
 \subsection{Bootstrap Equations and Matrices}
 Starting with the Hamiltonian we have
 \begin{equation}
-    H = \frac{p^2}{2M} + V(x)
+    H = \frac{p^2}{2M} + V(x)\label{eq:hamiltonian}
 \end{equation}
 for microcanonical ensemble the average of an observable $\mathcal{O}(x, p)$ is
 \begin{equation}
@@ -110,9 +119,9 @@ and we can easily find that
 here $\{H, \mathcal{O}\}$ is the poisson bracket.
 As for the positivity constraints, obviously that for any observable $\mathcal{O}$ we would have
 \begin{equation}
-    \braket{\mathcal{O}^* \mathcal{O}} \geq 0
+    \braket{\mathcal{O}^* \mathcal{O}} \geq 0 \label{eq:pos}
 \end{equation}
-and by writing the observale as a polynomial of certain observable $o$, $\mathcal{O} = \sum_{i = 0}^k a_i o^i$, one can construct a bootstrap matrix which can be defined as
+and by writing the observable as a polynomial of certain observable $o$, $\mathcal{O} = \sum_{i = 0}^k a_i o^i$, one can construct a bootstrap matrix which can be defined as
 \begin{equation}
     \bm{\mathcal{M}}_{ij} = \braket{(o^*)^i o^j}, \ \ \ i, j = 0, 1, ..., k
 \end{equation}
@@ -139,6 +148,7 @@ here we define two auxiliary matrices $\bm{\mathcal{M}}_{ij}^0 = (B^*)^j (A^*)^i
     \bm{\mathcal{M}} \succeq 0
 \end{equation}
 
+\subsection{methodology framework}
 
 \subsection{Double Well Potential}
 The Hamiltonian of a double well potential can be written as
@@ -186,8 +196,12 @@ In constrast with \cite{Nakayama_2022}, our result shows no peninsula in where $
 
 Like Nakayama has mentioned, $\braket{x}$ doesn't have to be zero in classical mechanics, but this method does produce a narrow region upon the assumption \eqref{eq:recur3}. So we then study the $\braket{x}$ and $\braket{x^3}$ with fixed $E$ and $\braket{x^2}$ using the $\braket{x^m p^n}$ bootstrap program, which, still turns out to be a line in Fig.~\ref{fig:xx}.
 
+\section{Numerical examples}
+
+\section{Conclusions}
+
 \section*{Acknowledgements}
-I would like to express my sincere gratitude to my tutor, [Dong Bai], for providing valuable guidance and direction throughout the course of this research. His insights and expertise significantly contributed to the development and completion of this work. Additionally, I would like to acknowledge the Eigen developping team for building such convenient yet powerful linear algebra library that has accelerated a lot of our numerical program.
+I would like to thank Dong Bai for discussions and encouragements.
 
 
 % If in two-column mode, this environment will change to single-column
