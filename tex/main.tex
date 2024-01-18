@@ -151,11 +151,17 @@ here we define two auxiliary matrices $\bm{\mathcal{M}}_{ij}^0 = (B^*)^j (A^*)^i
 \subsection{Recusion Formula}
 Taking $\mathcal{O}$ as $x^m p^n$ and substituting Hamiltonian\eqref{eq:hamiltonian} into \eqref{eq:beq0} and \eqref{eq:beq1}, we immediately obtain
 \begin{align}
-    \text{recursion formula here} \label{eq:recursion}
+    n \braket{\frac{d V}{d x} x^m p^{n - 1}} = 2E m \braket{x^{m - 1} p^{n - 1}} - 2m\braket{V x^{m - 1} p^{n - 1}} \notag \\ 
+    E\braket{x^m p^n} = \frac1{2m}\braket{x^m p^{n + 2}} + \braket{V x^m p^n} \label{eq:recursionpoly}
+\end{align}
+This would do the trick for the potential with polynoial of $x$, when the potential is in the form of exponentials, we need to take $\mathcal{O}$ as $e^{mx} p^n$ 
+\begin{align}
+    n \braket{\frac{d V}{d x} e^{m x} p^{n - 1}} = 2Em\braket{e^{mx} p^{n - 1}} - 2m\braket{V e^{mx} p^{n - 1}}\notag \\ 
+    E \braket{e^{mx} p^n} = \frac1{2M}\braket{e^{mx} p^{n + 2}} + \braket{Ve^{mx} p^n} \label{eq:recursionexp}
 \end{align}
 
 \subsection{Methodology Framework}
-With the recursion formula\eqref{eq:recursion} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. Doing so over all the possible initial values can produce the allowed regions restricted by positivity constraint. 
+With the recursion formula\eqref{eq:recursionpoly} or \eqref{eq:recursionexp} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. Doing so over all the possible initial values can produce the allowed regions restricted by positivity constraint. 
 
 \section{Numerical examples}
 \subsection {Double Well Potential}
@@ -163,7 +169,7 @@ The Hamiltonian of a double well potential can be written as
 \begin{equation}
     H = p^2 - x^2 + x^4
 \end{equation}
-taking $M = 2$ and with \eqref{eq:recursion} we have
+taking $M = 2$ and with \eqref{eq:recursionpoly} we have
 \begin{equation}
     2(2n + m)\braket{x^{m + 3} p^{n - 1}} = 2(m + n)\braket{x^{m + 1} p^{n - 1}} + 2mE\braket{x^{m - 1} p^{n - 1}} \label{eq:recur0}
 \end{equation}
@@ -204,9 +210,19 @@ In constrast with \cite{Nakayama_2022}, our result shows no peninsula in where $
 
 Like Nakayama has mentioned, $\braket{x}$ doesn't have to be zero in classical mechanics, but this method does produce a narrow region upon the assumption \eqref{eq:recur3}. So we then study the $\braket{x}$ and $\braket{x^3}$ with fixed $E$ and $\braket{x^2}$ using the $\braket{x^m p^n}$ bootstrap program, which, still turns out to be a line in Fig.~\ref{fig:xx}.
 
-\subsection{Coulomb Potential and Harmonic Oscillator}
+\subsection{Harmonic Oscillator and Coulomb Potential}
 
-
+Consider a hormonic oscillator, it's hamiltonian is
+\begin{equation}
+    H = p^2 + x^2
+\end{equation}
+and again, we can obtain the recursion formula
+\begin{align}
+    2n\braket{x^{m + 1} p^{n - 1}} = 2Em\braket{x^{m - 1} p^{n - 1}} - 2m\braket{x^{m + 1} p^{n - 1}}\notag \\ 
+    E\braket{x^m p^n} = \braket{x^m p^{n + 2}} + \braket{x^{m + 2} p^n}
+\end{align}
+since $\braket{x^0 p^0} = 1$ and $\braket{x} = 0$, and \eqref{eq:recur2} also holds true, we only need the initial energy $E$ to bootstrap.
+    
 \section{Conclusions}
 
 \section*{Acknowledgements}
@@ -297,4 +313,5 @@ I would like to thank Dong Bai for discussions and encouragements.
 \end{document}
 %
 % ****** End of file apstemplate.tex ******
+
 
