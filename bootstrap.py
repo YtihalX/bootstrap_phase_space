@@ -53,7 +53,7 @@ def coulomb(E, size):
     x[0] = 1
     x[1] = -1/a - 3*a/4/E 
     for i in range(2, 2*size - 1):
-        x[i] = (2*i*x[i - 2] + a*(-1 - 2*n)*x[i - 1])/2/E/(i + 1)
+        x[i] = (2*i*x[i - 2] + a*(-1 - 2*i)*x[i - 1])/2/E/(i + 1)
     return np.array([[x[i + j] for j in range(size)] for i in range(size)])
 
 def anharmonics(E, xsq, size):

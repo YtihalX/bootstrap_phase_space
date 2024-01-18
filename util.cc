@@ -36,8 +36,8 @@ Eigen::MatrixXd mat_double(double **xp, uint64_t k) {
 
 uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis, bool (*model)(double, uint64_t)) {
 
-    array<double, NUM_X> x_parameter;
-    linspace(x_parameter.data(), 0., 10., x_parameter.size());
+    double *x_parameter = (double *)malloc(NUM_X*sizeof(double));
+    linspace(x_parameter, -0.200001, -0.2, NUM_X);
     // printf("%f, %f\n", x_range[124], x_range.back());
 
     vector<double> x_param_allowed[NUM_THREADS];
@@ -46,9 +46,9 @@ uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis, bool (
     struct ThreadArg pargs[NUM_THREADS];
 
     for (int i = 0; i < NUM_THREADS; i++) {
-        x_param_allowed[i].reserve(x_parameter.size());
-        pargs[i].x_range = x_parameter.data();
-        pargs[i].x_len = x_parameter.size();
+        x_param_allowed[i].reserve(NUM_X);
+        pargs[i].x_range = x_parameter;
+        pargs[i].x_len = NUM_X;
         pargs[i].y_range = NULL;
         pargs[i].y_len = 0;
         pargs[i].x_param_allowed = x_param_allowed + i;
@@ -69,7 +69,7 @@ uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis, bool (
         }
     }
 
-    uint64_t len = x_parameter.size();
+    uint64_t len = NUM_X;
     uint64_t res = len%NUM_THREADS;
     for (uint64_t i = len - res; i < len; i++) {
         if (model(x_parameter[i], SIZE_MAT)) {
@@ -94,10 +94,12 @@ uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis, bool (
 
 uint64_t bootstrap_double(vector<double> *x_axis, vector<double> *y_axis, bool (*model)(double, double, uint64_t)) {
 
-    array<double, NUM_Y> y_parameter;
-    array<double, NUM_X> x_parameter;
-    linspace(x_parameter.data(), -0.27, 2., x_parameter.size());
-    linspace(y_parameter.data(), 0., 0.9, y_parameter.size());
+    double *x_parameter = (double *)malloc(NUM_X*sizeof(double));
+    double *y_parameter = (double *)malloc(NUM_Y*sizeof(double));
+    // linspace(x_parameter, -0.27, 2., NUM_X);
+    // linspace(y_parameter, 0., 0.9, NUM_Y);
+    linspace(x_parameter, -6, 6, NUM_X);
+    linspace(y_parameter, -3, 3, NUM_Y);
     // printf("%f, %f\n", x_range[124], x_range.back());
 
     vector<double> x_param_allowed[NUM_THREADS];
@@ -107,12 +109,12 @@ uint64_t bootstrap_double(vector<double> *x_axis, vector<double> *y_axis, bool (
     struct ThreadArg pargs[NUM_THREADS];
 
     for (int i = 0; i < NUM_THREADS; i++) {
-        y_param_allowed[i].reserve(y_parameter.size());
-        x_param_allowed[i].reserve(x_parameter.size());
-        pargs[i].x_range = x_parameter.data();
-        pargs[i].x_len = x_parameter.size();
-        pargs[i].y_range = y_parameter.data();
-        pargs[i].y_len = y_parameter.size();
+        y_param_allowed[i].reserve(NUM_Y);
+        x_param_allowed[i].reserve(NUM_X);
+        pargs[i].x_range = x_parameter;
+        pargs[i].x_len = NUM_X;
+        pargs[i].y_range = y_parameter;
+        pargs[i].y_len = NUM_Y;
         pargs[i].x_param_allowed = x_param_allowed + i;
         pargs[i].y_param_allowed = y_param_allowed + i;
         pargs[i].thread_id = i;
@@ -131,9 +133,9 @@ uint64_t bootstrap_double(vector<double> *x_axis, vector<double> *y_axis, bool (
         }
     }
 
-    uint64_t res = y_parameter.size()*x_parameter.size()%NUM_THREADS;
-    for (uint64_t j = y_parameter.size() - res; j < y_parameter.size(); j++) {
-        uint64_t i = x_parameter.size() - 1;
+    uint64_t res = NUM_Y*NUM_X%NUM_THREADS;
+    for (uint64_t j = NUM_Y - res; j < NUM_Y; j++) {
+        uint64_t i = NUM_X - 1;
         if (model(x_parameter[i], y_parameter[j], SIZE_MAT)) {
             y_param_allowed[0].push_back(y_parameter[j]);
             x_param_allowed[0].push_back(x_parameter[i]);

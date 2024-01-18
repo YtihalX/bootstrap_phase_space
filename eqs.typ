@@ -19,3 +19,8 @@ $ V = e^(i theta) + e^(-i theta) $
 $ (n + 2m - 1) angle.l e^(i m theta) p^n angle.r = 2(m - 1)E angle.l e^(i(m - 1) theta) p^n angle.r + (n - 2m + 3) angle.l e^(i(m - 2)theta) p^n angle.r $
 $ (2m - 1) angle.l e^(i m theta) angle.r = 2(m - 1)E angle.l e^(i(m - 1)theta) angle.r + (3 - 2m) angle.l e^(i(m - 2)theta) angle.r $
 $ E angle.l e^(i m theta) p^n angle.r = angle.l e^(i m theta) p^(n + 2) angle.r + angle.l e^(i(m + 1)theta) p^n angle.r + angle.l e^(i(m - 1)theta) p^n angle.r $
+
+= Coulomb potentia
+$ V = -1/r + 1/r^2 $
+$ 2(m + 1)E f(m, n) = 2(m - n)f(m - 2, n) + (n - 2m - 1)f(m - 1, n) $
+$ E f(m, n - 2) = f(m, n) - f(m - 1, n - 2) + f(m - 2, n - 2) $

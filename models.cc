@@ -1,4 +1,5 @@
 #include "models.h"
+#include "util.h"
 
 bool double_well(double E, double xsq, uint64_t size) {
     uint64_t xlen = max(2*size - 1, 8ul);
@@ -22,20 +23,10 @@ bool double_well(double E, double xsq, uint64_t size) {
             xp[i][j] = ((i + j - 2)*xp[i - 2][j] + E*(i - 3)*xp[i - 4][j])/(i + 2*j - 1);
         }
     }
-    Eigen::MatrixXd mat(size*size, size*size);
-    for (uint64_t i = 0; i < size*size; i++) {
-        for (uint64_t j = i; j < size*size; j++) {
-            uint64_t a = i/size;
-            uint64_t b = i%size;
-            uint64_t c = j/size;
-            uint64_t d = j%size;
-            mat(i, j) = xp[a + c][b + d];
-            mat(j, i) = mat(i, j);
-        }
-    }
+    auto mat = mat_double(xp, size);
     for (uint64_t i = 0; i < xlen; i++) free(xp[i]);
     free(xp);
-    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -62,20 +53,10 @@ bool double_well_fixed(double x1, double x3, uint64_t size) {
             xp[i][j] = ((i + j - 2)*xp[i - 2][j] + E*(i - 3)*xp[i - 4][j])/(i + 2*j - 1);
         }
     }
-    Eigen::MatrixXd mat(size*size, size*size);
-    for (uint64_t i = 0; i < size*size; i++) {
-        for (uint64_t j = i; j < size*size; j++) {
-            uint64_t a = i/size;
-            uint64_t b = i%size;
-            uint64_t c = j/size;
-            uint64_t d = j%size;
-            mat(i, j) = xp[a + c][b + d];
-            mat(j, i) = mat(i, j);
-        }
-    }
+    auto mat = mat_double(xp, size);
     for (uint64_t i = 0; i < xlen; i++) free(xp[i]);
     free(xp);
-    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -88,15 +69,71 @@ bool double_well_single(double E, double xsq, uint64_t size) {
     for (uint64_t i = 4; i < 2*size - 1; i++) {
         x[i] = ((i - 2)*x[i - 2] + (i - 3)*x[i - 4]*E)/(i - 1);
     }
-    Eigen::MatrixXd mat(size, size);
-    for (uint64_t i = 0; i < size; i++) {
-        for (uint64_t j = i; j < size; j++) {
-            mat(i, j) = x[i + j];
-            mat(j, i) = x[i + j];
-        }
-    }
+    auto mat = mat_single(x, size);
     free(x);
-    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
+    return solver.eigenvalues().minCoeff() >= 0;
+}
+
+bool harmonics_single(double E, uint64_t size) {
+    double *x = (double *)malloc((2*size - 1)*sizeof(double));
+    x[0] = 1;
+    x[1] = 0;
+    for (int64_t i = 2; i < 2*size - 1; i ++) {
+        x[i] = E*(i - 1)/i*x[i - 2];
+    }
+    auto mat = mat_single(x, size);
+    free(x);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
+    return solver.eigenvalues().minCoeff() >= 0;
+}
+
+bool harmonics(double E, uint64_t size) {
+    uint64_t xlen = max(2*size - 1, 4ul);
+    double **xp = (double **)malloc(xlen*sizeof(double *));
+    for (uint64_t i = 0; i < xlen; i++) xp[i] = (double *)malloc((2*size - 1)*sizeof(double));
+    xp[0][0] = 1;
+    xp[1][0] = 0;
+    for (int64_t i = 2; i < xlen; i++) xp[i][0] = E*(i - 1)/i*xp[i - 2][0];
+    for (int64_t i = 0; i < xlen; i++) xp[i][1] = 0;
+    for (int64_t j = 2; j < 2*size - 1; j++) {
+        for (int64_t i = 0; i < 2; i++) xp[i][j] = E*xp[i][j - 2] - xp[i + 2][j - 2];
+        for (int64_t i = 2; i < xlen; i++) xp[i][j] = E*(i - 1)/(i + j)*xp[i - 2][j];
+    }
+    auto mat = mat_double(xp, size);
+    for (uint64_t i = 0; i < xlen; i++) free(xp[i]);
+    free(xp);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
+    return solver.eigenvalues().minCoeff() >= 0;
+}
+
+bool coulomb_single(double E, uint64_t size) {
+    double *x = (double *)malloc((2*size - 1)*sizeof(double));
+    x[0] = 1;
+    x[1] = - 1 - 3./4/E;
+    for (int64_t i = 2; i < 2*size - 1; i++) x[i] = (2*i*x[i - 2] - (1 + 2*i)*x[i - 1])/2/(i + 1)/E;
+    auto mat = mat_single(x, size);
+    free(x);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
+    return solver.eigenvalues().minCoeff() >= 0;
+}
+
+bool coulomb(double E, uint64_t size) {
+    uint64_t xlen = max((2*size - 1), 4lu);
+    double **xp = (double **)malloc(xlen*sizeof(double *));
+    for (uint64_t i = 0; i < xlen; i++) xp[i] = (double *)malloc((2*size - 1)*sizeof(double));
+    xp[0][0] = 1;
+    xp[1][0] = - 1 - 3./4/E;
+    for (int64_t i = 2; i < xlen; i++) xp[i][0] = (2*i*xp[i - 2][0] - (1 + 2*i)*xp[i - 1][0])/2/(i + 1)/E;
+    for (uint64_t i = 0; i < xlen; i++) xp[i][1] = 0;
+    for (int64_t j = 2; j < 2*size - 1; j++) {
+        for(int64_t i = 2; i < xlen; i++) xp[i][j] = E*xp[i][j - 2] + xp[i - 1][j - 2] - xp[i - 2][j - 2];
+        for (int64_t i = 1; i >= 0; i--) xp[i][j] = (2*(i + 3)*E*xp[i + 2][j] - (j - 2*i - 5)*xp[i + 1][j])/2/(i - j + 2);
+    }
+    auto mat = mat_double(xp, size);
+    for (uint64_t i = 0; i < xlen; i++) free(xp[i]);
+    free(xp);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -113,20 +150,10 @@ bool toda(double E, double ex, uint64_t size) {
         xp[0][j] = ((3 + j)*xp[2][j] - 2*E*xp[1][j])/(j - 1);
         for (int64_t i = 3; i < xlen; i++) xp[i][j] = (2*E*(i - 1)*xp[i - 1][j] + (j - 2*i + 3)*xp[i - 2][j])/(2*i + j - 1);
     }
-    Eigen::MatrixXd mat(size*size, size*size);
-    for (uint64_t i = 0; i < size*size; i++) {
-        for (uint64_t j = i; j < size*size; j++) {
-            uint64_t a = i/size;
-            uint64_t b = i%size;
-            uint64_t c = j/size;
-            uint64_t d = j%size;
-            mat(i, j) = xp[a + c][b + d];
-            mat(j, i) = mat(i, j);
-        }
-    }
+    auto mat = mat_double(xp, size);
     for (uint64_t i = 0; i < xlen; i++) free(xp[i]);
     free(xp);
-    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -137,15 +164,9 @@ bool toda_single(double E, double ex, uint64_t size) {
     for (int64_t i = 2; i < 2*size - 1; i++) {
         x[i] = (2*E*(i - 1)*x[i - 1] + (- 2*i + 3)*x[i - 2])/(2*i - 1);
     }
-    Eigen::MatrixXd mat(size, size);
-    for (uint64_t i = 0; i < size; i++) {
-        for (uint64_t j = i; j < size; j++) {
-            mat(i, j) = x[i + j];
-            mat(j, i) = x[i + j];
-        }
-    }
+    auto mat = mat_single(x, size);
     free(x);
-    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -160,14 +181,14 @@ bool trig_single(double E, double ex, uint64_t size) {
     for (int64_t i = 2; i < size; i++) {
         x[i + offset] = (2*(i - 1)*E*x[i - 1 + offset] + (3 - 2*i)*x[i - 2 + offset])/(2*i - 1);
     }
-    Eigen::MatrixXd mat(size, size);
+    MatrixXd mat(size, size);
     for (uint64_t i = 0; i < size; i++) {
         for (uint64_t j = 0; j < size; j++) {
             mat(i, j) = x[- i + j + offset];
         }
     }
     free(x);
-    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(mat);
+    SelfAdjointEigenSolver<MatrixXd> solver(mat);
     return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -187,7 +208,7 @@ bool trig_single(double E, double ex, uint64_t size) {
 //        for (int64_t i = -1; i > -size; i--) xp[i + offset][j] = ((2*i + j + 3)*xp[i + 2 + offset][j] - 2*(i + 1)*xp[i + 1 + offset][j])/(j - 2*i - 1);
 //        for (int64_t i = 2; i < size; i++) xp[i + offset][j] = (2*(i - 1)*E*xp[i - 1 + offset][j] + (j - 2*i + 3)*xp[i - 2 + offset][j])/(2*i + j - 1);
 //    }
-//    Eigen::MatrixXd mat(size*size, size*size);
+//    MatrixXd mat(size*size, size*size);
 //    for (int64_t i = 0; i < size*size; i++) {
 //        for (int64_t j = i; j < size*size; j++) {
 //            int64_t a = i/size;

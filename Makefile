@@ -4,8 +4,12 @@ CXX = g++
 # Compiler flags
 CXXFLAGS = -O3
 
+FOO = foo
+
 # Source files
 SRCS = main.cc routines.cc util.cc models.cc
+
+HEADERS = routines.h util.h models.h
 
 # Object files
 OBJS = $(SRCS:.cc=.o)
@@ -19,7 +23,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
 
-%.o: %.cpp
+%.o: %.cc foo
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 test: test.cc
@@ -27,16 +31,20 @@ test: test.cc
 	./test
 
 cal: $(TARGET)
-	./main
+	./$(TARGET)
 
 icat: plt.py
 	python -OO plt.py
 	kitten icat plot.png
 
+$(FOO): $(HEADERS)
+	touch $@
+
 debug:
 	@echo "OBJS: $(OBJS)"
+	@echo "HEADERS: $(HEADERS)"
 
 clean:
-	rm -f bootstrap plot.png data.csv debug
+	rm -f $(TARGET) plot.png data.csv debug $(OBJS)
 
 .PHONY: compile cal plot icat clean
