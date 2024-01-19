@@ -87,6 +87,7 @@ uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis, bool (
     for (int i = 0; i < NUM_THREADS; i++) {
         x_axis->insert(x_axis->end(), x_param_allowed[i].begin(), x_param_allowed[i].end());
     }
+    free(x_parameter);
 
     return length;
 
@@ -96,10 +97,10 @@ uint64_t bootstrap_double(vector<double> *x_axis, vector<double> *y_axis, bool (
 
     double *x_parameter = (double *)malloc(NUM_X*sizeof(double));
     double *y_parameter = (double *)malloc(NUM_Y*sizeof(double));
-    // linspace(x_parameter, -0.27, 2., NUM_X);
-    // linspace(y_parameter, 0., 0.9, NUM_Y);
-    linspace(x_parameter, -6, 6, NUM_X);
-    linspace(y_parameter, -3, 3, NUM_Y);
+    linspace(x_parameter, 6., 12., NUM_X);
+    linspace(y_parameter, 1.8, 3.2, NUM_Y);
+    // linspace(x_parameter, -6, 6, NUM_X);
+    // linspace(y_parameter, -3, 3, NUM_Y);
     // printf("%f, %f\n", x_range[124], x_range.back());
 
     vector<double> x_param_allowed[NUM_THREADS];
@@ -153,6 +154,9 @@ uint64_t bootstrap_double(vector<double> *x_axis, vector<double> *y_axis, bool (
         x_axis->insert(x_axis->end(), x_param_allowed[i].begin(), x_param_allowed[i].end());
         y_axis->insert(y_axis->end(), y_param_allowed[i].begin(), y_param_allowed[i].end());
     }
+
+    free(x_parameter);
+    free(y_parameter);
 
     return length;
 }

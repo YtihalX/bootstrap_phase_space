@@ -20,7 +20,7 @@
 % Choose pra, prb, prc, prd, pre, prl, prstab, prstper, or rmp for journal
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showkeys' option to make keywords appear
-\documentclass[aps,prl, preprint,amsmath, amssymb]{revtex4-2}
+\documentclass[aps, preprint,amsmath, amssymb]{revtex4-2}
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-2}
 %\documentclass[aps,prl,reprint,groupedaddress]{revtex4-2}
 \usepackage{hyperref}
@@ -97,7 +97,7 @@ Although widely studied in quantum mechanics, one can also apply the method into
 
 Nakayama~\cite{Nakayama_2022} first introduced this method into the classical scenario, despite reporting the feasibility of the approach, when bootstrapping the double well potential he mentioned a peninsula in $ E < 0$ which doesn't converge even for larger bootstrap matrices. In this paper, we use a different approach that incorporates more information in phase space and thus exhibiting a much stronger constraint, we will see that the result of double well bootstrap in phase space cancels the sector region in $E < 0$ compared to the $x$ only bootstrap.
 
-We also investigate coulomb potential, a harmonic oscillator and a non relativistic toda model, the first two can be solved analytically via the bootstrap approach which, however, are trivial cases. As for the non relativistic toda model, our approach in phase space once again demonstrates more powerful restriction, maybe over powerful that we can merely see few points in the result if the sample isn't big enough.
+We also investigate coulomb potential, a harmonic oscillator and a non relativistic toda model, the first two can be solved analytically(here by analytically we mean that the averages of observables can be written in a function of $E$) via the bootstrap approach which, however, are trivial cases. As for the non relativistic toda model, our approach in phase space once again demonstrates more powerful restriction, maybe over powerful that we can merely see few points in the result if the sample isn't big enough.
 
 Yet a stronger constraint our approach may have, it still cannot converge to the exact solution in some places, like the non relativistic toda model. Not to mention that our approach consumes much more computing power, the size of our bootstrap matrix is ${O}(n^4)$. But the benifit is that we can easily achieve high precision when the result converges.
 
@@ -161,7 +161,7 @@ This would do the trick for the potential with polynoial of $x$, when the potent
 \end{align}
 
 \subsection{Methodology Framework}
-With the recursion formula\eqref{eq:recursionpoly} or \eqref{eq:recursionexp} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. Doing so over all the possible initial values can produce the allowed regions restricted by positivity constraint. 
+With the recursion formula\eqref{eq:recursionpoly} or \eqref{eq:recursionexp} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. Doing so over all the possible initial values will eventually generate the allowed regions restricted by positivity constraint. 
 
 \section{Numerical examples}
 \subsection {Double Well Potential}
@@ -240,13 +240,46 @@ Substituting $m = n = 1$ into the first equation we can get
 \begin{equation}
     2E = -\braket{r^{-1}}
 \end{equation}
-which is Virial theorem. With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb}, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision.
+which is Virial theorem. With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb}. However, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision. But the $x^m$ bootstrap is doing great, at least we successfully find the allowed energy.
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{coulomb.png}
-    \caption{$\braket{x^m}$ bootstrap ($k = 8$) for harmonic oscillator}
+    \caption{$\braket{x^m}$ bootstrap ($k = 8$) for coulomb potential}
     \label{fig:coulomb}
 \end{figure}
+
+\subsection{Non-Relativistic Toda model}
+For a non-relativistic Toda model, the Hamiltonian may be written as
+\begin{equation}
+    H = p^2 + e^x + e^{-x}
+\end{equation}
+the recursion equations are 
+\begin{align}
+    (n + 2m)\braket{e^{m + 1} p^{n - 1}} = 2E\braket{e^m p^{n - 1}} + (n - 2m)\braket{e^{m - 1} p^{n - 1}}\notag \\ 
+    E\braket{e^{mx} p^n} = \braket{e^{mx} p^{n + 2}} + \braket{e^{(m + 1)x} p^n} + \braket{e^{(m - 1)x} p^n}
+\end{align}
+and studying $\braket{\{H, e^{mx}\}}$ we have
+\begin{equation}
+    \braket{e^{(m - 1)x} p} = 0
+\end{equation}
+using the initial parameters $E$ and $\braket{e^x}$, the bootstrap result is shown in Fig.\ref{fig:toda}
+\begin{figure}
+    \includegraphics[width=0.8\linewidth]{toda_compare.png}
+    \caption{Bootstrap for non-relativistic Toda model}
+    \label{fig:toda}
+\end{figure}
+
+Using the two observables bootstrap shows a much stronger constraint than the single one, in this non-relativistic Toda mode the $e^{mx}$ bootstrap even fails to reject the negative $E$, and resulting in a much larger region. Our approach may have better precision, yet the allowed region still tends to diverge when $E$ goes large\ref{fig:todal}.
+
+\begin{figure}
+    \includegraphics[width=0.8\linewidth]{todal.png}
+    \caption{Allowed region diverges as $E$ grows}
+    \label{fig:todal}
+\end{figure}
+
 \section{Conclusions}
+In this paper, we study two different bootstrap approaches in four different models, our approach outperforms the single observable bootstrap program in some models e.g. double well, non-relativistic Toda model, while in other two models our bootstrap in phase space fails to achieve a satisfactory result, the single observable one already restricts the model pretty well.
+
+Although our approach performs better and achieves a much higher precision, it still fails to converge to the exact solution, and even tends to diverge. Like $E \to 0$ in the double well potential, $E \to \infty$ in the non-relativistic Toda model, we may still be missing some information to pin point the final answer.
 
 \section*{Acknowledgements}
 I would like to thank Dong Bai for discussions and encouragements.

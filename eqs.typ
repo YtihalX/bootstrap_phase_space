@@ -24,3 +24,6 @@ $ E angle.l e^(i m theta) p^n angle.r = angle.l e^(i m theta) p^(n + 2) angle.r 
 $ V = -1/r + 1/r^2 $
 $ 2(m + 1)E f(m, n) = 2(m - n)f(m - 2, n) + (n - 2m - 1)f(m - 1, n) $
 $ E f(m, n - 2) = f(m, n) - f(m - 1, n - 2) + f(m - 2, n - 2) $
+
+= Toda
+$ V = e^x + e^(-x) $
