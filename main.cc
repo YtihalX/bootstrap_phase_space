@@ -11,7 +11,7 @@ int main() {
     #if MODEL == 0
     auto length = bootstrap_single(&x_axis, &y_axis, coulomb);
     #elif MODEL == 1
-    auto length = bootstrap_double(&x_axis, &y_axis, toda);
+    auto length = bootstrap_double(&x_axis, &y_axis, double_well);
     #endif
 
     FILE *data = fopen("data1.csv", "w");

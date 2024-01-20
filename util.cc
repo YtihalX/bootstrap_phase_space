@@ -97,8 +97,8 @@ uint64_t bootstrap_double(vector<double> *x_axis, vector<double> *y_axis, bool (
 
     double *x_parameter = (double *)malloc(NUM_X*sizeof(double));
     double *y_parameter = (double *)malloc(NUM_Y*sizeof(double));
-    linspace(x_parameter, 6., 12., NUM_X);
-    linspace(y_parameter, 1.8, 3.2, NUM_Y);
+    linspace(x_parameter, -0.2, 0.2, NUM_X);
+    linspace(y_parameter, 0., 0.4, NUM_Y);
     // linspace(x_parameter, -6, 6, NUM_X);
     // linspace(y_parameter, -3, 3, NUM_Y);
     // printf("%f, %f\n", x_range[124], x_range.back());

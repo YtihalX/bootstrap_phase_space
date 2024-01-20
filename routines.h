@@ -2,9 +2,9 @@
 #define ROUTINES_H
 
 #define NUM_THREADS 12
-#define SIZE_MAT 4
-#define NUM_Y 10000lu
-#define NUM_X 10000lu
+#define SIZE_MAT 6
+#define NUM_Y 20000lu
+#define NUM_X 20000lu
 #define DEBUG_THREAD 1
 
 #include <pthread.h>
