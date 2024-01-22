@@ -91,15 +91,18 @@
 \section{Introduction}
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
+
 Bootstrap, a novel yet promising method has been studied in quantum mechanics recently, is a way to utilize the very general self-consistency condition and solve the system numerically.
-Developped in 1960s and '70s\cite{enwiki:1195984682}, the method was later applied in lattice theory\cite{ANDERSON2017702, lawrence2021bootstrapping, Kazakov_2023}, conformal field\cite{RevModPhys.91.015002, PhysRevLett.127.081601} as well as matrix models \cite{Lin_2020, Kazakov_2022}.
-The bootstrap appraoch used to find the eigen energies for bound states in recent papers are mostly inspired by Han\cite{Han_2020}, some papers have studied different systems using this method~\cite{Bhattacharya:2021btd, Berenstein:2021loy, Du:2021hfw, Aikawa_2022, Tchoumakov_2021, bai2022bootstrapping, Berenstein:2021dyf, Hu:2022keu}, and many have reported the accuracy and high precision of the method. In certain case the bootstrap evolves into Dirac's ladder operator approach and can be solved analytically, suggesting some underlying mechanism of this method~\cite{Aikawa:2021qbl}.
+Developped in 1960s and '70s~\cite{enwiki:1195984682}, the method was later applied in large N systems~\cite{JEVICKI1983169, JEVICKI1984299, RODRIGUES1985350}, lattice theory~\cite{ANDERSON2017702, lawrence2021bootstrapping, Kazakov_2023, refId0}, conformal field theory~\cite{RevModPhys.91.015002, PhysRevLett.127.081601, PhysRevD.86.025022, El_Showk_2012, El_Showk_2014, Simmons_Duffin_2017} as well as matrix models \cite{Lin_2020, Kazakov_2022}. This technique is also used to bootstap the Dirac ensembles\cite{Hessam_2022}, some has integrated this method with artificial intelligence\cite{K_ntor_2022, K_ntor_20221}.
+The bootstrap appraoch used to find the eigen energies for bound states in recent papers are mostly inspired by Han\cite{Han_2020}, some papers have studied different systems using this method~\cite{Bhattacharya:2021btd, Berenstein:2021loy, Du:2021hfw, Aikawa_2022, Tchoumakov_2021, bai2022bootstrapping, Berenstein:2021dyf}, and many have reported the accuracy and high precision of the method. 
+In certain case the bootstrap evolves into Dirac's ladder operator approach and can be solved analytically, suggesting some underlying mechanism of this method~\cite{Aikawa:2021qbl}. In this paper, we report a method that can be seen as a classical correspondence to Han's.
 
 Although widely studied in quantum mechanics, one can also apply the method into microcanonical ensembles as the fundamental relations of bootstrap are still applicable and have their classical correspondence \eqref{eq:beq0}\eqref{eq:beq1}\eqref{eq:pos} as $\hbar \to 0$. 
 
 Nakayama~\cite{Nakayama_2022} first introduced this method into the classical scenario, despite reporting the feasibility of the approach, when bootstrapping the double well potential he mentioned a peninsula in $ E < 0$ which doesn't converge even for larger bootstrap matrices. In this paper, we use a different approach that incorporates more information in phase space and thus exhibiting a much stronger constraint, we will see that the result of double well bootstrap in phase space cancels the sector region in $E < 0$ compared to the $x$ only bootstrap.
 
-We also investigate coulomb potential, a harmonic oscillator and a non relativistic toda model, the first two can be solved analytically(here by analytically we mean that the averages of observables can be written in a function of $E$) via the bootstrap approach which, however, are trivial cases. As for the non relativistic toda model, our approach in phase space once again demonstrates more powerful restriction, maybe over powerful that we can merely see few points in the result if the sample isn't big enough.
+We also investigate coulomb potential, a harmonic oscillator and a non relativistic toda model, the first two can be solved analytically(here by analytically we mean that the averages of observables can be written in a form of $E$) via the bootstrap approach which, however, are trivial cases. As for the non relativistic toda model, our approach in phase space once again demonstrates more powerful restriction, maybe over powerful that we can merely see few points in the result if the sample isn't big enough.
+Since Hu has discussed many models and derived a lot of bootstrap equations, most of our models are the modified version of \cite{Hu:2022keu}.
 
 Yet a stronger constraint our approach may have, it still cannot converge to the exact solution in some places, like the non relativistic toda model. Not to mention that our approach consumes much more computing power, the size of our bootstrap matrix is ${O}(n^4)$. But the benifit is that we can easily achieve high precision when the result converges.
 
@@ -156,7 +159,7 @@ Taking $\mathcal{O}$ as $x^m p^n$ and substituting Hamiltonian\eqref{eq:hamilton
     n \braket{\frac{d V}{d x} x^m p^{n - 1}} = 2E m \braket{x^{m - 1} p^{n - 1}} - 2m\braket{V x^{m - 1} p^{n - 1}} \notag \\ 
     E\braket{x^m p^n} = \frac1{2m}\braket{x^m p^{n + 2}} + \braket{V x^m p^n} \label{eq:recursionpoly}
 \end{align}
-This would do the trick for the potential with polynoial of $x$, when the potential is in the form of exponentials, we need to take $\mathcal{O}$ as $e^{mx} p^n$ 
+This would do the trick for the potential with polynomial of $x$, when the potential is in the form of exponentials, we need to take $\mathcal{O}$ as $e^{mx} p^n$ 
 \begin{align}
     n \braket{\frac{d V}{d x} e^{m x} p^{n - 1}} = 2Em\braket{e^{mx} p^{n - 1}} - 2m\braket{V e^{mx} p^{n - 1}}\notag \\ 
     E \braket{e^{mx} p^n} = \frac1{2M}\braket{e^{mx} p^{n + 2}} + \braket{Ve^{mx} p^n} \label{eq:recursionexp}
@@ -229,6 +232,7 @@ since $\braket{x^0 p^0} = 1$ and $\braket{x} = 0$, and \eqref{eq:recur2} also ho
     \caption{$\braket{x^m p^n}$ bootstrap ($k = 4$) for harmonic oscillator}
     \label{fig:harmonics}
 \end{figure}
+
 As for the coulomb potential, assume the Hamiltonian
 \begin{equation}
     H = p^2 - \frac1r + \frac1{r^2}
