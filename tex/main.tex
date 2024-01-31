@@ -78,7 +78,7 @@
 \begin{abstract}
 % insert abstract here
     % The bootstrap method which has been studied under many quantum mechanical models turns out to be feasible in microcanonical ensemble as well. In this paper we report a method as a improvement to [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)].
-    The bootstrap method which has been studied under many quantum mechanical models turns out feasible in microcanonical ensemble as well. While the approach in [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)] produces a sector when Energy is negative, in this paper we report a method that has stronger constraints thus resulting in a smaller region. We also study other models to demonstrate the effectiveness of our method.
+    The bootstrap method which has been studied under many quantum mechanical models turns out feasible in microcanonical ensemble as well. While the approach in [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)] produces a sector when energy is negative, in this paper we report a method that has stronger constraints and results in a smaller region. We also study other models to demonstrate the effectiveness of our method.
 \end{abstract}
 
 % insert suggested keywords - APS authors don't need to do this
@@ -93,19 +93,19 @@
 % Put \label in argument of \section for cross-referencing
 %\section{\label{}}
 
-Bootstrap, a novel yet promising method has been studied in quantum mechanics recently, is a way to utilize the very general self-consistency condition and solve the system numerically.
-Developped in 1960s and '70s~\cite{enwiki:1195984682}, the method was later applied in large N systems~\cite{JEVICKI1983169, JEVICKI1984299, RODRIGUES1985350}, lattice theory~\cite{ANDERSON2017702, lawrence2021bootstrapping, Kazakov_2023, refId0}, conformal field theory~\cite{RevModPhys.91.015002, PhysRevLett.127.081601, PhysRevD.86.025022, El_Showk_2012, El_Showk_2014, Simmons_Duffin_2017} as well as matrix models \cite{Lin_2020, Kazakov_2022}. This technique is also used to bootstap the Dirac ensembles\cite{Hessam_2022}, some has integrated this method with artificial intelligence\cite{K_ntor_2022, K_ntor_20221}.
-The bootstrap appraoch used to find the eigen energies for bound states in recent papers are mostly inspired by Han\cite{Han_2020}, some papers have studied different systems using this method~\cite{Bhattacharya:2021btd, Berenstein:2021loy, Du:2021hfw, Aikawa_2022, Tchoumakov_2021, bai2022bootstrapping, Berenstein:2021dyf}, and many have reported the accuracy and high precision of the method.
-In certain case the bootstrap evolves into Dirac's ladder operator approach and can be solved analytically, suggesting some underlying mechanism of this method~\cite{Aikawa:2021qbl}. In this paper, we report a method that can be seen as a classical correspondence to Han's.
+Bootstrap, a novel yet promising method which has been studied in quantum mechanics recently, is a way to utilize the very general self-consistency condition and solve the system numerically.
+Developed in the 1960s and '70s~\cite{enwiki:1195984682}, the method was later applied in large N systems~\cite{JEVICKI1983169, JEVICKI1984299, RODRIGUES1985350}, lattice theory~\cite{ANDERSON2017702, lawrence2021bootstrapping, Kazakov_2023, refId0}, conformal field theory~\cite{RevModPhys.91.015002, PhysRevLett.127.081601, PhysRevD.86.025022, El_Showk_2012, El_Showk_2014, Simmons_Duffin_2017} as well as matrix models \cite{Lin_2020, Kazakov_2022}. This technique is also used to bootstrap the Dirac ensembles~\cite{Hessam_2022}, some have integrated this method with artificial intelligence~\cite{K_ntor_2022, K_ntor_20221}.
+And the bootstrap approaches used to find the eigen energies for bound states in recent papers are mostly inspired by Han~\cite{Han_2020}. Some papers have studied different systems using this method~\cite{Bhattacharya:2021btd, Berenstein:2021loy, Du:2021hfw, Aikawa_2022, Tchoumakov_2021, bai2022bootstrapping, Berenstein:2021dyf}, and many have reported the accuracy and high precision of the method.
+In certain cases the bootstrap evolves into Dirac's ladder operator approach and can be solved analytically, suggesting some underlying mechanism of this method~\cite{Aikawa:2021qbl}. In this paper, we report an approach that can be seen as a classical correspondence to Han's.
 
-Although widely studied in quantum mechanics, one can also apply the method into microcanonical ensembles as the fundamental relations of bootstrap are still applicable and have their classical correspondence \eqref{eq:beq0}\eqref{eq:beq1}\eqref{eq:pos} as $\hbar \to 0$.
+Although widely studied in quantum mechanics, one can also apply the method to microcanonical ensembles as the fundamental relations of bootstrapping are still applicable and have their classical correspondence \eqref{eq:beq0},~\eqref{eq:beq1}, and~\eqref{eq:pos} as $\hbar \to 0$.
 
-Nakayama~\cite{Nakayama_2022} first introduced this method into the classical scenario, despite reporting the feasibility of the approach, when bootstrapping the double well potential he mentioned a peninsula in $ E < 0$ which doesn't converge even for larger bootstrap matrices. In this paper, we use a different approach that incorporates more information in phase space and thus exhibiting a much stronger constraint, we will see that the result of double well bootstrap in phase space cancels the sector region in $E < 0$ compared to the $x$ only bootstrap.
+Nakayama~\cite{Nakayama_2022} first introduced this method into the classical scenario, despite reporting the feasibility of the approach, he mentioned a peninsula in $ E < 0$ which doesn't converge even for larger bootstrap matrices in the double-well potential. In this paper, we use a different approach that incorporates more information in phase space and thus exhibiting a much stronger constraint. We will see that the result of the double-well bootstrap in phase space cancels the sector region in $E < 0$ compared to the $x$ only bootstrap.
 
-We also investigate coulomb potential, a harmonic oscillator and a non relativistic toda model, the first two can be solved analytically(here by analytically we mean that the averages of observables can be written in a form of $E$) via the bootstrap approach which, however, are trivial cases. As for the non relativistic toda model, our approach in phase space once again demonstrates more powerful restriction, maybe over powerful that we can merely see few points in the result if the sample isn't big enough.
-Since Hu\cite{Hu:2022keu} has discussed many models and derived lots of bootstrap equations, most of our models are the modified version of his.
+We also investigate coulomb potential, a harmonic oscillator and a non-relativistic TODA model. The first two can be solved analytically (here by analytically we mean that the averages of observables can be written in a form of $E$) via the bootstrap approach which, however, are trivial cases. As for the non-relativistic TODA model, our approach in phase space once again demonstrates a more powerful restriction, maybe overly powerful that we can merely see a few points in the result if the sample isn't large enough.
+Since Hu~\cite{Hu:2022keu} has discussed many models and derived lots of bootstrap equations, most of our models are modified versions of his.
 
-Yet a stronger constraint our approach may have, it still cannot converge to the exact solution in some places, like the non relativistic toda model. Not to mention that our approach consumes much more computing power, the size of our bootstrap matrix is ${O}(n^4)$. But the benefit is that we can easily achieve high precision when the result converges.
+Yet a stronger constraint as our approach may have, it still cannot converge to the exact solution in some places, like the non-relativistic TODA model. Not to mention that our approach consumes much more computing power, for the size of our bootstrap matrix is ${O}(n^4)$. But the benefit is that we can easily achieve high precision when the result converges.
 
 \section{Microcanonical ensemble bootstrap}
 \subsection{Bootstrap Equations and Matrices}
@@ -123,7 +123,7 @@ and we can easily find that
     \braket{H \mathcal{O}} = E \braket{\mathcal{O}} \label{eq:beq1}
 \end{align}
 here $\{H, \mathcal{O}\}$ is the poisson bracket.
-As for the positivity constraints, obviously that for any observable $\mathcal{O}$ we would have
+As for the positivity constraints, obviously for any observable $\mathcal{O}$ we would have
 \begin{equation}
     \braket{\mathcal{O}^* \mathcal{O}} \geq 0 \label{eq:pos}
 \end{equation}
@@ -160,18 +160,18 @@ Taking $\mathcal{O}$ as $x^m p^n$ and substituting Hamiltonian\eqref{eq:hamilton
     n \braket{\frac{d V}{d x} x^m p^{n - 1}} = 2E m \braket{x^{m - 1} p^{n - 1}} - 2m\braket{V x^{m - 1} p^{n - 1}} \notag \\
     E\braket{x^m p^n} = \frac1{2m}\braket{x^m p^{n + 2}} + \braket{V x^m p^n} \label{eq:recursionpoly}
 \end{align}
-This would do the trick for the potential with polynomial of $x$, when the potential is in the form of exponentials, we need to take $\mathcal{O}$ as $e^{mx} p^n$
+this would do the trick for the potential with polynomial of $x$. When the potential is in the form of exponentials, we need to take $\mathcal{O}$ as $e^{mx} p^n$
 \begin{align}
     n \braket{\frac{d V}{d x} e^{m x} p^{n - 1}} = 2Em\braket{e^{mx} p^{n - 1}} - 2m\braket{V e^{mx} p^{n - 1}}\notag \\
     E \braket{e^{mx} p^n} = \frac1{2M}\braket{e^{mx} p^{n + 2}} + \braket{Ve^{mx} p^n} \label{eq:recursionexp}
 \end{align}
 
 \subsection{Methodology Framework}
-With the recursion formula\eqref{eq:recursionpoly} or \eqref{eq:recursionexp} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. Doing so over all the possible initial values will eventually find the allowed regions restricted by positivity constraint.
+With the recursion formula\eqref{eq:recursionpoly} or \eqref{eq:recursionexp} and a few initial values we can construct a whole bootstrap matrix $\bm{\mathcal{M}}$, and by testing the positive semi definiteness of the matrix the validity of the initial values can be determined. By doing so over all the possible initial values we will eventually find the allowed regions restricted by positivity constraint.
 
 \section{Numerical examples}
-\subsection {Double Well Potential}
-The Hamiltonian of a double well potential can be written as
+\subsection {Double-Well Potential}
+The Hamiltonian of a double-well potential can be written as
 \begin{equation}
     H = p^2 - x^2 + x^4
 \end{equation}
@@ -212,13 +212,13 @@ with \eqref{eq:recur0}~\eqref{eq:recur1}~\eqref{eq:recur2}~\eqref{eq:recur3} plu
 % \end{figure}
 %
 
-In constrast with \cite{Nakayama_2022}, our result shows no peninsula when $E$ is negative, as we include the information of the momentum. When E turns negative, the curve menifests a similar behavior as the positive part. In our program the scale of the bootstrap matrix is $k^4$, which is much larger compared to the single observable bootstrap program with the scale of $k^2$. So here the size of our bootstrap matrix is $625$, about seven times to the $x$ bootstrap. But the region still doesn't shrink even when we set $k = 25$ for the $x$ only bootstrap program, so we conclude that this bootstrap in phase space does have a much stronger constraint than the single observable one.
+In constrast with \cite{Nakayama_2022}, our result shows no peninsula when $E$ is negative, as we include the information of the momentum. When E turns negative, the curve manifests a similar behavior as the positive part. In our program the scale of the bootstrap matrix is $k^4$, which is much larger compared to the single observable bootstrap program with the scale of $k^2$. So here the size of our bootstrap matrix is $625$, about seven times bigger than that of the $x$ bootstrap. But the region still doesn't shrink even when we set $k = 25$ for the $x$ only bootstrap program, so we conclude that this bootstrap in phase space does have a much stronger constraint than the single observable one.
 
 %Like Nakayama has mentioned, $\braket{x}$ doesn't have to be zero in classical mechanics, but this method does produce a narrow region upon the assumption \eqref{eq:recur3}. So we then study the $\braket{x}$ and $\braket{x^3}$ with fixed $E$ and $\braket{x^2}$ using the $\braket{x^m p^n}$ bootstrap program, which, still turns out to be a line in Fig.~\ref{fig:xx}.
 
 \subsection{Harmonic Oscillator and Coulomb Potential}
 
-Consider a harmonic oscillator, it's hamiltonian is
+Consider a harmonic oscillator, its Hamiltonian is
 \begin{equation}
     H = p^2 + x^2
 \end{equation}
@@ -247,15 +247,15 @@ Substituting $m = n = 1$ into the first equation we can get
 \begin{equation}
     2E = -\braket{r^{-1}}
 \end{equation}
-which is Virial theorem. With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb}. However, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision. But the $x^m$ bootstrap is doing great, at least we successfully find the allowed energy.
+which is the Virial theorem. With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb}. However, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision. But the $x^m$ bootstrap is doing great, at least we successfully find the allowed energy.
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{coulomb.png}
     \caption{$\braket{x^m}$ bootstrap ($k = 8$) for coulomb potential}
     \label{fig:coulomb}
 \end{figure}
 
-\subsection{Non-Relativistic Toda model}
-For a non-relativistic Toda model, the Hamiltonian may be written as
+\subsection{Non-Relativistic TODA model}
+For a non-relativistic TODA model, the Hamiltonian might be written as
 \begin{equation}
     H = p^2 + e^x + e^{-x}
 \end{equation}
@@ -271,11 +271,11 @@ and studying $\braket{\{H, e^{mx}\}}$ we have
 using the initial parameters $E$ and $\braket{e^x}$, the bootstrap result is shown in Fig.\ref{fig:toda}
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{toda_compare.png}
-    \caption{Bootstrap for non-relativistic Toda model}
+    \caption{Bootstrap for non-relativistic TODA model}
     \label{fig:toda}
 \end{figure}
 
-Using the two observables bootstrap shows a much stronger constraint than the single one, in this non-relativistic Toda mode the $e^{mx}$ bootstrap even fails to reject the negative $E$, and resulting in a much larger region. Our approach may have better precision, yet the allowed region still tends to diverge when $E$ goes large in Fig.~\ref{fig:todal}.
+The two observables bootstrap shows a much stronger constraint than the single one, in this non-relativistic TODA mode the $e^{mx}$ bootstrap even fails to reject the negative $E$, and results in a much larger region. Our approach may have better precision, yet the allowed region still tends to diverge when $E$ goes large in Fig.~\ref{fig:todal}.
 
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{todal.png}
@@ -284,12 +284,12 @@ Using the two observables bootstrap shows a much stronger constraint than the si
 \end{figure}
 
 \section{Conclusions}
-In this paper, we study two different bootstrap approaches in various models, our approach outperforms the single observable bootstrap program in some models e.g. double well, non-relativistic Toda model, while in other two models our bootstrap in phase space fails to achieve a satisfactory result, the single observable one already restricts the model pretty well.
+In this paper, we study two different bootstrap approaches in various models, our approach outperforms the single observable bootstrap program in some models e.g. double-well, non-relativistic TODA model, while in other two models our bootstrap in phase space fails to achieve a satisfactory result, the single observable one already restricts the model pretty well.
 
-Although our approach performs better and achieves a much higher precision, it still fails to converge to the exact solution, and even tends to diverge. Like $E \to 0$ in the double well potential, $E \to \infty$ in the non-relativistic Toda model, we may still be missing some information to pin point the final answer.
+Although our approach performs better and achieves a much higher precision, it still fails to converge to the exact solution, and even tends to diverge. Like in the situations that $E \to 0$ in the double-well potential, $E \to \infty$ in the non-relativistic TODA model, we might still be missing some information to pin point the final answer.
 
 \section*{Acknowledgements}
-I would like to thank Dong Bai for discussions and encouragements.
+I would like to thank Dong Bai for discussions and encouragements. I would also like to acknowledge Zhaobin Huang for reading the manuscript and valuable comments.
 
 
 % If in two-column mode, this environment will change to single-column
