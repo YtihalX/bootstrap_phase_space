@@ -1,7 +1,7 @@
 #ifndef ROUTINES_H
 #define ROUTINES_H
 
-#define NUM_THREADS 16
+#define NUM_THREADS 1
 #define DEBUG_THREAD 1
 
 #include <pthread.h>

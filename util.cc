@@ -39,6 +39,10 @@ uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis,
 
   double *x_parameter = (double *)malloc(num_x * sizeof(double));
   linspace(x_parameter, plot_range[0][0], plot_range[0][1], num_x);
+  //  for (uint64_t i = 0; i < num_x; i++) {
+  //    fprintf(stderr, "%f ", x_parameter[i]);
+  //  }
+  //  fprintf(stderr, "\n");
   // printf("%f, %f\n", x_range[124], x_range.back());
 
   vector<double> x_param_allowed[NUM_THREADS];

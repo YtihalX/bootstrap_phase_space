@@ -29,6 +29,7 @@
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage{braket}
+\usepackage{changes}
 
 
 % You should use BibTeX and apsrev.bst for references
@@ -76,9 +77,9 @@
 \date{\today}
 
 \begin{abstract}
-% insert abstract here
-    % The bootstrap method which has been studied under many quantum mechanical models turns out to be feasible in microcanonical ensemble as well. In this paper we report a method as a improvement to [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)].
-    The bootstrap method which has been studied under many quantum mechanical models turns out feasible in microcanonical ensemble as well. While the approach in [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)] produces a sector when energy is negative, in this paper we report a method that has stronger constraints and results in a smaller region. We also study other models to demonstrate the effectiveness of our method.
+	% insert abstract here
+	% The bootstrap method which has been studied under many quantum mechanical models turns out to be feasible in microcanonical ensemble as well. In this paper we report a method as a improvement to [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)].
+	The bootstrap method which has been studied under many quantum mechanical models turns out feasible in microcanonical ensemble as well. While the approach in [Y.\ Nakayama, Modern\ Physics\ Letters\ A\ \textbf{37}, 10.1142/s0217732322500547 (2022)] produces a sector when energy is negative, in this paper we report a method that has stronger constraints and results in a smaller region. We also study other models to demonstrate the effectiveness of our method.
 \end{abstract}
 
 % insert suggested keywords - APS authors don't need to do this
@@ -111,59 +112,59 @@ Yet a stronger constraint as our approach may have, it still cannot converge to 
 \subsection{Bootstrap Equations and Matrices}
 Starting with the Hamiltonian we have
 \begin{equation}
-    H = \frac{p^2}{2M} + V(x)\label{eq:hamiltonian}
+	H = \frac{p^2}{2M} + V(x)\label{eq:hamiltonian}
 \end{equation}
 for microcanonical ensemble the average of an observable $\mathcal{O}(x, p)$ is
 \begin{equation}
-    \braket{\mathcal{O}(x, p)} = \frac{\int dxdp\mathcal{O}(x, p)\delta (E - H)}{\int dxdp\delta (E - H)}
+	\braket{\mathcal{O}(x, p)} = \frac{\int dxdp\mathcal{O}(x, p)\delta (E - H)}{\int dxdp\delta (E - H)}
 \end{equation}
 and we can easily find that
 \begin{align}
-    \braket{\{H, \mathcal{O}\}} = 0 \label{eq:beq0}\\
-    \braket{H \mathcal{O}} = E \braket{\mathcal{O}} \label{eq:beq1}
+	\braket{\{H, \mathcal{O}\}} = 0 \label{eq:beq0} \\
+	\braket{H \mathcal{O}} = E \braket{\mathcal{O}} \label{eq:beq1}
 \end{align}
 here $\{H, \mathcal{O}\}$ is the poisson bracket.
 As for the positivity constraints, obviously for any observable $\mathcal{O}$ we would have
 \begin{equation}
-    \braket{\mathcal{O}^* \mathcal{O}} \geq 0 \label{eq:pos}
+	\braket{\mathcal{O}^* \mathcal{O}} \geq 0 \label{eq:pos}
 \end{equation}
 and by writing the observable as a polynomial of certain observable $o$, $\mathcal{O} = \sum_{i = 0}^k a_i o^i$, one can construct a bootstrap matrix which can be defined as
 \begin{equation}
-    \bm{\mathcal{M}}_{ij} = \braket{(o^*)^i o^j}, \ \ \ i, j = 0, 1, ..., k
+	\bm{\mathcal{M}}_{ij} = \braket{(o^*)^i o^j}, \ \ \ i, j = 0, 1, ..., k
 \end{equation}
 we can then rewrite the constraints (5) with matrix and vectors
 \begin{equation}
-    \bm{\alpha}^\dagger \bm{\mathcal{M} \bm{\alpha}} \geq 0\label{eq:positivity}
+	\bm{\alpha}^\dagger \bm{\mathcal{M} \bm{\alpha}} \geq 0\label{eq:positivity}
 \end{equation}
 as ~\eqref{eq:positivity} should hold true for any vector $\bm{\alpha}$, the bootstrap matrix $\bm{\mathcal{M}}$ must embody the positive semi definiteness i.e. $\bm{\mathcal{M}} \succeq 0$, which is essentially an eigenvalue problem
 \begin{equation}
-    \forall (\bm{\mathcal{M}})_{eigenvalue} \geq 0
+	\forall (\bm{\mathcal{M}})_{eigenvalue} \geq 0
 \end{equation}
 When the observable $\mathcal{O}$ is a coupling of two observables, say, $A$ and $B$
 \begin{equation}
-    \mathcal{O} = \sum_{i, j = 0}^{k - 1} a_i b_j A^i B^j\\
+	\mathcal{O} = \sum_{i, j = 0}^{k - 1} a_i b_j A^i B^j\\
 \end{equation}
 \begin{equation}
-    \mathcal{O}^* \mathcal{O} = \sum_{i_1, j_1, i_2, j_2 = 0}^{k - 1} a_{i_1}^* b_{j_1}^* (B^*)^{j_1} (A^*)^{i_1} A^{i_2} B^{j_2} a_{i_2} b_{j_2}
+	\mathcal{O}^* \mathcal{O} = \sum_{i_1, j_1, i_2, j_2 = 0}^{k - 1} a_{i_1}^* b_{j_1}^* (B^*)^{j_1} (A^*)^{i_1} A^{i_2} B^{j_2} a_{i_2} b_{j_2}
 \end{equation}
 we can define two auxiliary matrices $\bm{\mathcal{M}}_{ij}^0 = (B^*)^j (A^*)^i$ and $\bm{\mathcal{M}}_{ij}^1 = A^i B^j$, the constraints may be written as
 \begin{equation}
-    \bm{\mathcal{M}}_{ij} = \braket{(\bm{\mathcal{M}}^0 \otimes \bm{\mathcal{M}}^1)_{ij}}, \ \ i, j = 0, 1, 2, ..., k^2 - 1
+	\bm{\mathcal{M}}_{ij} = \braket{(\bm{\mathcal{M}}^0 \otimes \bm{\mathcal{M}}^1)_{ij}}, \ \ i, j = 0, 1, 2, ..., k^2 - 1
 \end{equation}
 \begin{equation}
-    \bm{\mathcal{M}} \succeq 0
+	\bm{\mathcal{M}} \succeq 0
 \end{equation}
 
 \subsection{Recursion Formula}
 Taking $\mathcal{O}$ as $x^m p^n$ and substituting Hamiltonian\eqref{eq:hamiltonian} into \eqref{eq:beq0} and \eqref{eq:beq1}, we immediately obtain
 \begin{align}
-    n \braket{\frac{d V}{d x} x^m p^{n - 1}} = 2E m \braket{x^{m - 1} p^{n - 1}} - 2m\braket{V x^{m - 1} p^{n - 1}} \notag \\
-    E\braket{x^m p^n} = \frac1{2m}\braket{x^m p^{n + 2}} + \braket{V x^m p^n} \label{eq:recursionpoly}
+	n \braket{\frac{d V}{d x} x^m p^{n - 1}} = 2E m \braket{x^{m - 1} p^{n - 1}} - 2m\braket{V x^{m - 1} p^{n - 1}} \notag \\
+	E\braket{x^m p^n} = \frac1{2m}\braket{x^m p^{n + 2}} + \braket{V x^m p^n} \label{eq:recursionpoly}
 \end{align}
 this would do the trick for the potential with polynomial of $x$. When the potential is in the form of exponentials, we need to take $\mathcal{O}$ as $e^{mx} p^n$
 \begin{align}
-    n \braket{\frac{d V}{d x} e^{m x} p^{n - 1}} = 2Em\braket{e^{mx} p^{n - 1}} - 2m\braket{V e^{mx} p^{n - 1}}\notag \\
-    E \braket{e^{mx} p^n} = \frac1{2M}\braket{e^{mx} p^{n + 2}} + \braket{Ve^{mx} p^n} \label{eq:recursionexp}
+	n \braket{\frac{d V}{d x} e^{m x} p^{n - 1}} = 2Em\braket{e^{mx} p^{n - 1}} - 2m\braket{V e^{mx} p^{n - 1}}\notag \\
+	E \braket{e^{mx} p^n} = \frac1{2M}\braket{e^{mx} p^{n + 2}} + \braket{Ve^{mx} p^n} \label{eq:recursionexp}
 \end{align}
 
 \subsection{Methodology Framework}
@@ -173,11 +174,11 @@ With the recursion formula\eqref{eq:recursionpoly} or \eqref{eq:recursionexp} an
 \subsection {Double-Well Potential}
 The Hamiltonian of a double-well potential can be written as
 \begin{equation}
-    H = p^2 - x^2 + x^4
+	H = p^2 - x^2 + x^4
 \end{equation}
 taking $M = \frac12$ and with \eqref{eq:recursionpoly} we have
 \begin{equation}
-    2(2n + m)\braket{x^{m + 3} p^{n - 1}} = 2(m + n)\braket{x^{m + 1} p^{n - 1}} + 2mE\braket{x^{m - 1} p^{n - 1}} \label{eq:recur0}
+	2(2n + m)\braket{x^{m + 3} p^{n - 1}} = 2(m + n)\braket{x^{m + 1} p^{n - 1}} + 2mE\braket{x^{m - 1} p^{n - 1}} \label{eq:recur0}
 \end{equation}
 %\begin{align}
 %    2(2n + m)\braket{x^{m + 3} p^{n - 1}} =& \notag \\ &2(m + n)\braket{x^{m + 1} p^{n - 1}}\notag \\ &+ 2mE\braket{x^{m - 1} p^{n - 1}} \label{eq:recur0}
@@ -186,23 +187,23 @@ taking $M = \frac12$ and with \eqref{eq:recursionpoly} we have
 %    \braket{Hx^m p^n} = E\braket{x^m p^n} =&\notag \\ &\braket{x^m p^{n + 2}} - \braket{x^{m + 2} p^n}\notag \\ &+ \braket{x^{m + 4} p^n} \label{eq:recur1}
 %\end{align}
 \begin{equation}
-    \braket{Hx^m p^n} = E\braket{x^m p^n} = \braket{x^m p^{n + 2}} - \braket{x^{m + 2} p^n} + \braket{x^{m + 4} p^n} \label{eq:recur1}
+	\braket{Hx^m p^n} = E\braket{x^m p^n} = \braket{x^m p^{n + 2}} - \braket{x^{m + 2} p^n} + \braket{x^{m + 4} p^n} \label{eq:recur1}
 \end{equation}
 plus $\braket{\{H, x^m\}} = 0$, we get
 \begin{equation}
-    \braket{x^{m - 1} p} = 0 \label{eq:recur2}
+	\braket{x^{m - 1} p} = 0 \label{eq:recur2}
 \end{equation}
 and for simplicity, we here assume that the average of $x$ to the odd powers is $0$
 \begin{equation}
-    \braket{x^m} = 0,\ \ \ \text{for all odd}\ m \label{eq:recur3}
+	\braket{x^m} = 0,\ \ \ \text{for all odd}\ m \label{eq:recur3}
 \end{equation}
 with \eqref{eq:recur0}~\eqref{eq:recur1}~\eqref{eq:recur2}~\eqref{eq:recur3} plus the initial paratemers $E$ and $\braket{x^2}$ we can construct the bootstrap matrix $\bm{\mathcal{M}}$.The result when $k = 5$ is shown in Fig.~\ref{fig:doublewell}. We also reproduced the result in \cite{Nakayama_2022} to make a comparison.
 
 \begin{figure}
-    \includegraphics[width=0.45\linewidth]{plot_5.png}
-    \includegraphics[width=0.45\linewidth]{x_9.png}
-    \caption{$xp$ bootstrap with $k = 5$(left), $x$ only bootstrap with $k = 9$(right)}
-    \label{fig:doublewell}
+	\includegraphics[width=0.45\linewidth]{plot_5.png}
+	\includegraphics[width=0.45\linewidth]{x_9.png}
+	\caption{$xp$ bootstrap with $k = 5$(left), $x$ only bootstrap with $k = 9$(right)}
+	\label{fig:doublewell}
 \end{figure}
 
 % \begin{figure}
@@ -220,67 +221,67 @@ In constrast with \cite{Nakayama_2022}, our result shows no peninsula when $E$ i
 
 Consider a harmonic oscillator, its Hamiltonian is
 \begin{equation}
-    H = p^2 + x^2
+	H = p^2 + x^2
 \end{equation}
 and again, we can obtain the recursion formula
 \begin{align}
-    2n\braket{x^{m + 1} p^{n - 1}} = 2Em\braket{x^{m - 1} p^{n - 1}} - 2m\braket{x^{m + 1} p^{n - 1}}\notag \\
-    E\braket{x^m p^n} = \braket{x^m p^{n + 2}} + \braket{x^{m + 2} p^n}
+	2n\braket{x^{m + 1} p^{n - 1}} = 2Em\braket{x^{m - 1} p^{n - 1}} - 2m\braket{x^{m + 1} p^{n - 1}}\notag \\
+	E\braket{x^m p^n} = \braket{x^m p^{n + 2}} + \braket{x^{m + 2} p^n}
 \end{align}
-since $\braket{x^0 p^0} = 1$ and $\braket{x} = 0$, and \eqref{eq:recur2} also holds true, we only need the initial energy $E$ to bootstrap. The result of bootstrap is shown in Fig.\ref{fig:harmonics}, as we sample $E$ from negative to positive, we can see that the negative energies are rejected by the bootstrap program. While the $x$ only bootstrap can also generate the same plot, our approach reachs an accuracy about 100 times higher than the $x$ only bootstrap, because to obtain the same result, our method requires sampling more than 100 times as many data points as the original one.
+since $\braket{x^0 p^0} = 1$ and $\braket{x} = 0$, and \eqref{eq:recur2} also holds true, we only need the initial energy $E$ to bootstrap. The result of bootstrap is shown in Fig.\ref{fig:harmonics}, as we sample $E$ from negative to positive, we can see that the negative energies are rejected by the bootstrap program. \deleted{While the $x$ only bootstrap can also generate the same plot, our approach reachs an accuracy about 100 times higher than the $x$ only bootstrap, because to obtain the same result, our method requires sampling more than 100 times as many data points as the original one.}
 \begin{figure}
-    \includegraphics[width=0.8\linewidth]{harmonics.png}
-    \caption{$\braket{x^m p^n}$ bootstrap ($k = 4$) for harmonic oscillator}
-    \label{fig:harmonics}
+	\includegraphics[width=0.8\linewidth]{harmonics.png}
+    \caption{\added{Allowed regions in} \replaced{$xp$}{$\braket{x^m p^n}$} bootstrap ($k = 4$) for harmonic oscillator}
+	\label{fig:harmonics}
 \end{figure}
 
 As for the coulomb potential, assume the Hamiltonian
 \begin{equation}
-    H = p^2 - \frac1r + \frac1{r^2}
+	H = p^2 - \frac1r + \frac1{r^2}
 \end{equation}
 here $- \frac1r + \frac1{r^2}$ is the effective potential. The recursion equations are
 \begin{align}
-    2mE\braket{r^{m - 1} p^{n - 1}} = 2(m - n)\braket{r^{m - 3} p^{n - 1}} + (n - 2m)\braket{r^{m - 2} p^{n - 1}} \notag \\
-    E\braket{r^m p^n} = \braket{r^m p^{n + 2}} - \braket{r^{m - 1} p^n} + \braket{r^{m - 2} p^n}
+	2mE\braket{r^{m - 1} p^{n - 1}} = 2(m - n)\braket{r^{m - 3} p^{n - 1}} + (n - 2m)\braket{r^{m - 2} p^{n - 1}} \notag \\
+	E\braket{r^m p^n} = \braket{r^m p^{n + 2}} - \braket{r^{m - 1} p^n} + \braket{r^{m - 2} p^n}
 \end{align}
 Substituting $m = n = 1$ into the first equation we can get
 \begin{equation}
-    2E = -\braket{r^{-1}}
+	2E = -\braket{r^{-1}}
 \end{equation}
 which is the Virial theorem. With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb}. However, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision. But the $x^m$ bootstrap is doing great, at least we successfully find the allowed energy.
 \begin{figure}
-    \includegraphics[width=0.8\linewidth]{coulomb.png}
-    \caption{$\braket{x^m}$ bootstrap ($k = 8$) for coulomb potential}
-    \label{fig:coulomb}
+	\includegraphics[width=0.8\linewidth]{coulomb.png}
+    \caption{\added{Allowed regions in $x$} \deleted{$\braket{x^m}$} bootstrap ($k = 8$) for coulomb potential}
+	\label{fig:coulomb}
 \end{figure}
 
 \subsection{Non-Relativistic TODA model}
 For a non-relativistic TODA model, the Hamiltonian might be written as
 \begin{equation}
-    H = p^2 + e^x + e^{-x}
+	H = p^2 + e^x + e^{-x}
 \end{equation}
 the recursion equations are
 \begin{align}
-    (n + 2m)\braket{e^{m + 1} p^{n - 1}} = 2E\braket{e^m p^{n - 1}} + (n - 2m)\braket{e^{m - 1} p^{n - 1}}\notag \\
-    E\braket{e^{mx} p^n} = \braket{e^{mx} p^{n + 2}} + \braket{e^{(m + 1)x} p^n} + \braket{e^{(m - 1)x} p^n}
+	(n + 2m)\braket{e^{m + 1} p^{n - 1}} = 2E\braket{e^m p^{n - 1}} + (n - 2m)\braket{e^{m - 1} p^{n - 1}}\notag \\
+	E\braket{e^{mx} p^n} = \braket{e^{mx} p^{n + 2}} + \braket{e^{(m + 1)x} p^n} + \braket{e^{(m - 1)x} p^n}
 \end{align}
 and studying $\braket{\{H, e^{mx}\}}$ we have
 \begin{equation}
-    \braket{e^{(m - 1)x} p} = 0
+	\braket{e^{(m - 1)x} p} = 0
 \end{equation}
 using the initial parameters $E$ and $\braket{e^x}$, the bootstrap result is shown in Fig.\ref{fig:toda}
 \begin{figure}
-    \includegraphics[width=0.8\linewidth]{toda_compare.png}
-    \caption{Bootstrap for non-relativistic TODA model}
-    \label{fig:toda}
+	\includegraphics[width=0.8\linewidth]{toda_compare.png}
+    \caption{\added{Allowed regions in $xp$} bootstrap for non-relativistic TODA model}
+	\label{fig:toda}
 \end{figure}
 
 The two observables bootstrap shows a much stronger constraint than the single one, in this non-relativistic TODA mode the $e^{mx}$ bootstrap even fails to reject the negative $E$, and results in a much larger region. Our approach may have better precision, yet the allowed region still tends to diverge when $E$ goes large in Fig.~\ref{fig:todal}.
 
 \begin{figure}
-    \includegraphics[width=0.8\linewidth]{todal.png}
-    \caption{Allowed region diverges as $E$ grows}
-    \label{fig:todal}
+	\includegraphics[width=0.8\linewidth]{todal.png}
+	\caption{Allowed region diverges as $E$ grows}
+	\label{fig:todal}
 \end{figure}
 
 \section{Conclusions}

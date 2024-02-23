@@ -1,5 +1,6 @@
 #include "models.h"
 #include "util.h"
+#include <iostream>
 
 bool double_well(double E, double xsq, uint64_t size) {
   uint64_t xlen = max(2 * size - 1, 8ul);
@@ -128,6 +129,8 @@ bool coulomb_single(double E, uint64_t size) {
   auto mat = mat_single(x, size);
   free(x);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
+  //  if (solver.eigenvalues().minCoeff() >= 0)
+  //    std::cout << E << '\n' << mat << '\n' << solver.eigenvalues() << '\n';
   return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -156,6 +159,7 @@ bool coulomb(double E, uint64_t size) {
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
+  // std::cout << E << '\n' << mat << '\n' << solver.eigenvalues() << '\n';
   return solver.eigenvalues().minCoeff() >= 0;
 }
 

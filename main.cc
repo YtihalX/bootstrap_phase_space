@@ -48,15 +48,19 @@ int main(int argc, char *argv[]) { // =Double_or_Single= =model= =num_x= =num_y=
   if (args[0] == 0) {
     length = bootstrap_single(&x_axis, &y_axis,
 			      (bool (*)(double, uint64_t))models[args[1]]);
+    printf("E,xsq\n");
+    for (uint64_t i = 0; i < length; i++) {
+      printf("%.*f,%d\n", std::numeric_limits<double>::digits10, x_axis[i], 0);
+    }
   } else {
     length = bootstrap_double(
 	&x_axis, &y_axis, (bool (*)(double, double, uint64_t))models[args[1]]);
+    printf("E,xsq\n");
+    for (uint64_t i = 0; i < length; i++) {
+      printf("%.*f,%.*f\n", std::numeric_limits<double>::digits10, x_axis[i],
+	     std::numeric_limits<double>::digits10, y_axis[i]);
+    }
   }
 
-  printf("E,xsq\n");
-  for (uint64_t i = 0; i < length; i++) {
-    printf("%.*f,%.*f\n", std::numeric_limits<double>::digits10, x_axis[i],
-	   std::numeric_limits<double>::digits10, y_axis[i]);
-  }
   return 0;
 }
