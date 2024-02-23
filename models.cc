@@ -166,19 +166,19 @@ bool coulomb(double E, double sp, uint64_t size) {
 	  2 / (i - j + 2);
   }
   auto mat = mat_double(xp, size);
-  printf("E: %f\n", E);
-  for (uint64_t i = 0; i < xlen; i++) {
-    for (uint64_t j = 0; j < 2 * size - 1; j++) {
-      printf("%.4f ", xp[i][j]);
-    }
-    printf("\n");
-  }
-  printf("\n");
+  //  printf("E: %f\n", E);
+  //  for (uint64_t i = 0; i < xlen; i++) {
+  //    for (uint64_t j = 0; j < 2 * size - 1; j++) {
+  //      printf("%.4f ", xp[i][j]);
+  //    }
+  //    printf("\n");
+  //  }
+  //  printf("\n");
   for (uint64_t i = 0; i < xlen; i++)
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXmp> solver(mat);
-  std::cout << mat << '\n' << solver.eigenvalues() << '\n';
+  // std::cout << mat << '\n' << solver.eigenvalues() << '\n';
   return solver.eigenvalues().minCoeff() >= 0;
 }
 
