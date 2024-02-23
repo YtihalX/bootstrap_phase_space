@@ -2,7 +2,7 @@
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -O3
+CXXFLAGS = -O3 -lmpfr
 
 FOO = foo
 

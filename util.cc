@@ -8,8 +8,8 @@ void linspace(double *x, double start, double end, uint64_t len) {
   return;
 }
 
-Eigen::MatrixXd mat_single(double *x, uint64_t k) {
-  Eigen::MatrixXd mat(k, k);
+MatrixXmp mat_single(double *x, uint64_t k) {
+  MatrixXmp mat(k, k);
   for (uint64_t i = 0; i < k; i++) {
     for (uint64_t j = i; j < k; j++) {
       mat(i, j) = x[i + j];
@@ -19,8 +19,8 @@ Eigen::MatrixXd mat_single(double *x, uint64_t k) {
   return mat;
 }
 
-Eigen::MatrixXd mat_double(double **xp, uint64_t k) {
-  Eigen::MatrixXd mat(k * k, k * k);
+MatrixXmp mat_double(double **xp, uint64_t k) {
+  MatrixXmp mat(k * k, k * k);
   for (uint64_t i = 0; i < k * k; i++) {
     for (uint64_t j = i; j < k * k; j++) {
       uint64_t a = i / k;

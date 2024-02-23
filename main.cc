@@ -1,7 +1,6 @@
 #include "models.h"
 #include "util.h"
-
-#define MODEL 1
+#include <mpfr.h>
 
 using namespace ::std;
 
@@ -10,6 +9,7 @@ double plot_range[2][2];
 
 int main(int argc, char *argv[]) { // =Double_or_Single= =model= =num_x= =num_y=
 				   // =k= =range_x range_x= =range_y range_y=
+  mpfr_set_default_prec(128);
   if (argc != 10) {
     fprintf(stderr, "invalid usage, supposed to be 9 numbers\n");
     return 1;
