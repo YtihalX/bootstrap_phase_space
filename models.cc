@@ -134,19 +134,31 @@ bool coulomb_single(double E, uint64_t size) {
   return solver.eigenvalues().minCoeff() >= 0;
 }
 
-bool coulomb(double E, uint64_t size) {
+bool coulomb(double E, double sp, uint64_t size) {
   uint64_t xlen = max((2 * size - 1), 4lu);
   double **xp = (double **)malloc(xlen * sizeof(double *));
   for (uint64_t i = 0; i < xlen; i++)
     xp[i] = (double *)malloc((2 * size - 1) * sizeof(double));
   xp[0][0] = 1;
   xp[1][0] = -1 - 3. / 4 / E;
+  xp[0][2] = -E - sp;
   for (int64_t i = 2; i < xlen; i++)
     xp[i][0] =
 	(2 * i * xp[i - 2][0] - (1 + 2 * i) * xp[i - 1][0]) / 2 / (i + 1) / E;
-  for (uint64_t i = 0; i < xlen; i++)
-    xp[i][1] = 0;
-  for (int64_t j = 2; j < 2 * size - 1; j++) {
+  for (int64_t j = 1; j < 2 * size - 1; j += 2) {
+    for (int64_t i = 0; i < xlen; i++)
+      xp[i][j] = 0;
+  }
+  {
+    int64_t j = 2;
+    for (int64_t i = 2; i < xlen; i++)
+      xp[i][j] = E * xp[i][j - 2] + xp[i - 1][j - 2] - xp[i - 2][j - 2];
+    for (int64_t i = 1; i > 0; i--)
+      xp[i][j] =
+	  (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
+	  2 / (i - j + 2);
+  }
+  for (int64_t j = 4; j < 2 * size - 1; j += 2) {
     for (int64_t i = 2; i < xlen; i++)
       xp[i][j] = E * xp[i][j - 2] + xp[i - 1][j - 2] - xp[i - 2][j - 2];
     for (int64_t i = 1; i >= 0; i--)
@@ -155,11 +167,19 @@ bool coulomb(double E, uint64_t size) {
 	  2 / (i - j + 2);
   }
   auto mat = mat_double(xp, size);
+  //  printf("E: %f\n", E);
+  //  for (uint64_t i = 0; i < xlen; i++) {
+  //    for (uint64_t j = 0; j < 2 * size - 1; j++) {
+  //      printf("%.4f ", xp[i][j]);
+  //    }
+  //    printf("\n");
+  //  }
+  // printf("\n");
   for (uint64_t i = 0; i < xlen; i++)
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  // std::cout << E << '\n' << mat << '\n' << solver.eigenvalues() << '\n';
+  // std::cout << mat << '\n' << solver.eigenvalues() << '\n';
   return solver.eigenvalues().minCoeff() >= 0;
 }
 

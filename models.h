@@ -15,7 +15,7 @@ bool toda(double E, double ex, uint64_t size);
 bool toda_single(double E, double ex, uint64_t size);
 bool harmonics(double E, uint64_t size);
 bool harmonics_single(double E, uint64_t size);
-bool coulomb(double E, uint64_t size);
+bool coulomb(double E,double sp, uint64_t size);
 bool coulomb_single(double E, uint64_t size);
 
 #endif // !MODELS_H
