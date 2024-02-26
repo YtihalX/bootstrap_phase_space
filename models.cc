@@ -170,7 +170,7 @@ bool coulomb(double E, double sp, uint64_t size) {
           (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
           2 / (i - j + 2);
   }
-  auto mat = mat_double(xp, size);
+  auto mat = mat_double_mpfr(xp, size);
   //  printf("E: %f\n", E);
   //  for (uint64_t i = 0; i < xlen; i++) {
   //    for (uint64_t j = 0; j < 2 * size - 1; j++) {
@@ -182,7 +182,7 @@ bool coulomb(double E, double sp, uint64_t size) {
   for (uint64_t i = 0; i < xlen; i++)
     free(xp[i]);
   free(xp);
-  SelfAdjointEigenSolver<MatrixXd> solver(mat);
+  SelfAdjointEigenSolver<MatrixXmp> solver(mat);
   // std::cout << mat << '\n' << solver.eigenvalues() << '\n';
   return solver.eigenvalues().minCoeff() > -1e-13;
 }

@@ -5,14 +5,17 @@
 #include <eigen3/Eigen/Dense>
 #include <stdint.h>
 #include <vector>
+#include <eigen3/unsupported/Eigen/MPRealSupport>
 
 using std::array;
 using std::vector;
+typedef Eigen::Matrix<mpfr::mpreal, Eigen::Dynamic, Eigen::Dynamic> MatrixXmp;
 
 extern int64_t num_x, num_y, kk;
 extern double plot_range[2][2];
 void linspace(double *x, double start, double end, uint64_t len);
 Eigen::MatrixXd mat_single(double *x, uint64_t k);
+MatrixXmp mat_double_mpfr(double **xp, uint64_t k);
 Eigen::MatrixXd mat_double(double **xp, uint64_t k);
 uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis,
 			  bool (*model)(double, uint64_t));

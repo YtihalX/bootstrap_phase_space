@@ -34,6 +34,21 @@ Eigen::MatrixXd mat_double(double **xp, uint64_t k) {
   return mat;
 }
 
+MatrixXmp mat_double_mpfr(double **xp, uint64_t k) {
+  MatrixXmp mat(k * k, k * k);
+  for (uint64_t i = 0; i < k * k; i++) {
+    for (uint64_t j = i; j < k * k; j++) {
+      uint64_t a = i / k;
+      uint64_t b = i % k;
+      uint64_t c = j / k;
+      uint64_t d = j % k;
+      mat(i, j) = xp[a + c][b + d];
+      mat(j, i) = mat(i, j);
+    }
+  }
+  return mat;
+}
+
 uint64_t bootstrap_single(vector<double> *x_axis, vector<double> *y_axis,
 			  bool (*model)(double, uint64_t)) {
 

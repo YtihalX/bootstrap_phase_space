@@ -1,6 +1,8 @@
 #include "routines.h"
+#include "util.h"
 
 void *routine(void *arg) {
+  mpfr::mpreal::set_default_prec(128);
   ThreadArg parg = *(ThreadArg *)arg;
   uint64_t step = parg.y_len * parg.x_len / NUM_THREADS;
   uint64_t start = parg.thread_id * step;
