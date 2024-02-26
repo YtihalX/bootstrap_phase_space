@@ -11,3 +11,5 @@ text
 *.gz
 *.o
 *.pdf
+*.loc
+*.soc
