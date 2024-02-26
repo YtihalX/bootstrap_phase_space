@@ -231,7 +231,7 @@ and again, we can obtain the recursion formula
 since $\braket{x^0 p^0} = 1$ and $\braket{x} = 0$, and \eqref{eq:recur2} also holds true, we only need the initial energy $E$ to bootstrap. The result of bootstrap is shown in Fig.\ref{fig:harmonics}, as we sample $E$ from negative to positive, we can see that the negative energies are rejected by the bootstrap program. \deleted{While the $x$ only bootstrap can also generate the same plot, our approach reachs an accuracy about 100 times higher than the $x$ only bootstrap, because to obtain the same result, our method requires sampling more than 100 times as many data points as the original one.}
 \begin{figure}
 	\includegraphics[width=0.8\linewidth]{harmonics.png}
-    \caption{\added{Allowed regions in} \replaced{$xp$}{$\braket{x^m p^n}$} bootstrap ($k = 4$) for harmonic oscillator}
+	\caption{\added{Allowed regions in} \replaced{$xp$}{$\braket{x^m p^n}$} bootstrap ($k = 4$) for harmonic oscillator}
 	\label{fig:harmonics}
 \end{figure}
 
@@ -242,17 +242,27 @@ As for the coulomb potential, assume the Hamiltonian
 here $- \frac1r + \frac1{r^2}$ is the effective potential. The recursion equations are
 \begin{align}
 	2mE\braket{r^{m - 1} p^{n - 1}} = 2(m - n)\braket{r^{m - 3} p^{n - 1}} + (n - 2m)\braket{r^{m - 2} p^{n - 1}} \notag \\
-	E\braket{r^m p^n} = \braket{r^m p^{n + 2}} - \braket{r^{m - 1} p^n} + \braket{r^{m - 2} p^n}
+	E\braket{r^m p^n} = \braket{r^m p^{n + 2}} - \braket{r^{m - 1} p^n} + \braket{r^{m - 2} p^n} \label{eq:coul}
 \end{align}
 Substituting $m = n = 1$ into the first equation we can get
 \begin{equation}
 	2E = -\braket{r^{-1}}
 \end{equation}
-which is the Virial theorem. With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb}. However, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision. But the $x^m$ bootstrap is doing great, at least we successfully find the allowed energy.
+which is the Virial theorem. \replaced{This time we only need $E$ in the $x$ bootstrap and the result in shown in Fig\ref{fig:coulomb0}. But for the $xp$ bootstrap we also need the initial value of $r^{-2}$ because at some points the coefficients in formula\eqref{eq:coul} turn to 0 and thus breaking the recursion. The initial value $r^{-2}$ gives the exact information we need to patch up these points, together with equation \eqref{eq:recur2} the result of bootstrap is shown in Fig\ref{fig:coulomb1}. Here we can see that our $xp$ bootstrap excludes the positive $E$ which will cause the $r$ go negative.}{With the equation \eqref{eq:recur2}, again we only need $E$ to bootstrap the coulomb potential. The result is shown in Fig\ref{fig:coulomb0}. However, this time we failed to find any points using $x^m p^n$ bootstrap, we speculate that this is due to insufficient numerical precision. But the $x^m$ bootstrap is doing great, at least we successfully find the allowed energy.}
 \begin{figure}
-	\includegraphics[width=0.8\linewidth]{coulomb.png}
-    \caption{\added{Allowed regions in $x$} \deleted{$\braket{x^m}$} bootstrap ($k = 8$) for coulomb potential}
-	\label{fig:coulomb}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{coulomb.png}
+		\caption{\added{Allowed regions in $x$} \deleted{$\braket{x^m}$} bootstrap ($k = 8$) for coulomb potential}
+		\label{fig:coulomb0}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{coulomb_double.png}
+		\caption{Allowed regions in $xp$ bootstrap ($k = 3$) for coulomb potential}
+		\label{fig:coulomb1}
+	\end{minipage}
+
 \end{figure}
 
 \subsection{Non-Relativistic TODA model}
@@ -272,7 +282,7 @@ and studying $\braket{\{H, e^{mx}\}}$ we have
 using the initial parameters $E$ and $\braket{e^x}$, the bootstrap result is shown in Fig.\ref{fig:toda}
 \begin{figure}
 	\includegraphics[width=0.8\linewidth]{toda_compare.png}
-    \caption{\added{Allowed regions in $xp$} bootstrap for non-relativistic TODA model}
+	\caption{\added{Allowed regions in $xp$} bootstrap for non-relativistic TODA model}
 	\label{fig:toda}
 \end{figure}
 
@@ -285,9 +295,8 @@ The two observables bootstrap shows a much stronger constraint than the single o
 \end{figure}
 
 \section{Conclusions}
-In this paper, we study two different bootstrap approaches in various models, our approach outperforms the single observable bootstrap program in some models e.g. double-well, non-relativistic TODA model, while in other two models our bootstrap in phase space fails to achieve a satisfactory result, the single observable one already restricts the model pretty well.
-
-Although our approach performs better and achieves a much higher precision, it still fails to converge to the exact solution, and even tends to diverge. Like in the situations that $E \to 0$ in the double-well potential, $E \to \infty$ in the non-relativistic TODA model, we might still be missing some information to pin point the final answer.
+In this paper, we study two different bootstrap approaches in various models, our approach outperforms the single observable bootstrap program in most cases.\deleted{in some models e.g. double-well, non-relativistic TODA model, while in other two models our bootstrap in phase space fails to achieve a satisfactory result, the single observable one already restricts the model pretty well}.\added{We've seen that it cancels the sector region in double well potential, excludes some invalid $E$s in both harmonic oscillator and non-relativistic TODA model.}
+Although it performs better and achieves a much higher precision, it still fails to converge to the exact solution, and even tends to diverge. Like in the situations that $E \to 0$ in the double-well potential, $E \to \infty$ in the non-relativistic TODA model, we might still be missing some information to pin point the final answer.
 
 \section*{Acknowledgements}
 I would like to thank Dong Bai for discussions and encouragements. I would also like to acknowledge Zhaobin Huang for reading the manuscript and valuable comments.
@@ -365,7 +374,11 @@ I would like to thank Dong Bai for discussions and encouragements. I would also 
 % only one appendix.
 %\appendix
 %\section{}
-
+\appendix* 
+	\section{Numerical details}
+	With the scale of matrix growing at a fourth power rate, the floating-point precision becomes a critical bottleneck of our program. The typical \texttt{double} type in \texttt{c++} no longer meets our need, the range of the eigenvalues can easily exceed $10^{18}$ and thus leading to the loss of numerical precision in floating-point operations.
+	Our code is written in \texttt{c++} with the Eigen library~\cite{eigenweb} for linear algebra and GNU MPFR~\cite{fousse2007mpfr} for multiple precision floating-point.
+	
 % If you have acknowledgments, this puts in the proper section head.
 %\begin{acknowledgments}
 % put your acknowledgments here.
