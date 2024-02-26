@@ -23,7 +23,7 @@ bool double_well(double E, double xsq, uint64_t size) {
     }
     for (uint64_t i = 4; i < xlen; i++) {
       xp[i][j] = ((i + j - 2) * xp[i - 2][j] + E * (i - 3) * xp[i - 4][j]) /
-		 (i + 2 * j - 1);
+                 (i + 2 * j - 1);
     }
   }
   auto mat = mat_double(xp, size);
@@ -56,7 +56,7 @@ bool double_well_fixed(double x1, double x3, uint64_t size) {
     }
     for (uint64_t i = 4; i < xlen; i++) {
       xp[i][j] = ((i + j - 2) * xp[i - 2][j] + E * (i - 3) * xp[i - 4][j]) /
-		 (i + 2 * j - 1);
+                 (i + 2 * j - 1);
     }
   }
   auto mat = mat_double(xp, size);
@@ -117,6 +117,10 @@ bool harmonics(double E, uint64_t size) {
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
+  if (solver.eigenvalues().minCoeff() < 0)
+    std::cout << E << ":\n"
+              << mat << '\n'
+              << solver.eigenvalues()<< '\n';
   return solver.eigenvalues().minCoeff() >= 0;
 }
 
@@ -144,7 +148,7 @@ bool coulomb(double E, double sp, uint64_t size) {
   xp[0][2] = -E - sp;
   for (int64_t i = 2; i < xlen; i++)
     xp[i][0] =
-	(2 * i * xp[i - 2][0] - (1 + 2 * i) * xp[i - 1][0]) / 2 / (i + 1) / E;
+        (2 * i * xp[i - 2][0] - (1 + 2 * i) * xp[i - 1][0]) / 2 / (i + 1) / E;
   for (int64_t j = 1; j < 2 * size - 1; j += 2) {
     for (int64_t i = 0; i < xlen; i++)
       xp[i][j] = 0;
@@ -155,16 +159,16 @@ bool coulomb(double E, double sp, uint64_t size) {
       xp[i][j] = E * xp[i][j - 2] + xp[i - 1][j - 2] - xp[i - 2][j - 2];
     for (int64_t i = 1; i > 0; i--)
       xp[i][j] =
-	  (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
-	  2 / (i - j + 2);
+          (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
+          2 / (i - j + 2);
   }
   for (int64_t j = 4; j < 2 * size - 1; j += 2) {
     for (int64_t i = 2; i < xlen; i++)
       xp[i][j] = E * xp[i][j - 2] + xp[i - 1][j - 2] - xp[i - 2][j - 2];
     for (int64_t i = 1; i >= 0; i--)
       xp[i][j] =
-	  (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
-	  2 / (i - j + 2);
+          (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
+          2 / (i - j + 2);
   }
   auto mat = mat_double(xp, size);
   //  printf("E: %f\n", E);
@@ -192,7 +196,7 @@ bool toda(double E, double ex, uint64_t size) {
   xp[1][0] = ex;
   for (int64_t i = 2; i < xlen; i++)
     xp[i][0] = (2 * E * (i - 1) * xp[i - 1][0] + (-2 * i + 3) * xp[i - 2][0]) /
-	       (2 * i - 1);
+               (2 * i - 1);
   for (int64_t i = 0; i < xlen; i++)
     xp[i][1] = 0;
   for (int64_t j = 2; j < 2 * size - 1; j++) {
@@ -201,8 +205,8 @@ bool toda(double E, double ex, uint64_t size) {
     xp[0][j] = ((3 + j) * xp[2][j] - 2 * E * xp[1][j]) / (j - 1);
     for (int64_t i = 3; i < xlen; i++)
       xp[i][j] =
-	  (2 * E * (i - 1) * xp[i - 1][j] + (j - 2 * i + 3) * xp[i - 2][j]) /
-	  (2 * i + j - 1);
+          (2 * E * (i - 1) * xp[i - 1][j] + (j - 2 * i + 3) * xp[i - 2][j]) /
+          (2 * i + j - 1);
   }
   auto mat = mat_double(xp, size);
   for (uint64_t i = 0; i < xlen; i++)
@@ -232,13 +236,13 @@ bool trig_single(double E, double ex, uint64_t size) {
   x[1 + offset] = ex;
   for (int64_t i = -1; i > -size; i--) {
     x[i + offset] =
-	((2 * i + 3) * x[i + 2 + offset] - 2 * (i + 1) * x[i + 1 + offset]) /
-	(-1 - 2 * i);
+        ((2 * i + 3) * x[i + 2 + offset] - 2 * (i + 1) * x[i + 1 + offset]) /
+        (-1 - 2 * i);
   }
   for (int64_t i = 2; i < size; i++) {
     x[i + offset] = (2 * (i - 1) * E * x[i - 1 + offset] +
-		     (3 - 2 * i) * x[i - 2 + offset]) /
-		    (2 * i - 1);
+                     (3 - 2 * i) * x[i - 2 + offset]) /
+                    (2 * i - 1);
   }
   MatrixXd mat(size, size);
   for (uint64_t i = 0; i < size; i++) {
