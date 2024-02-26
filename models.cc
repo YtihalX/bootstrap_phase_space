@@ -31,7 +31,7 @@ bool double_well(double E, double xsq, uint64_t size) {
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool double_well_fixed(double x1, double x3, uint64_t size) {
@@ -64,7 +64,7 @@ bool double_well_fixed(double x1, double x3, uint64_t size) {
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool double_well_single(double E, double xsq, uint64_t size) {
@@ -79,7 +79,7 @@ bool double_well_single(double E, double xsq, uint64_t size) {
   auto mat = mat_single(x, size);
   free(x);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool harmonics_single(double E, uint64_t size) {
@@ -92,7 +92,7 @@ bool harmonics_single(double E, uint64_t size) {
   auto mat = mat_single(x, size);
   free(x);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool harmonics(double E, uint64_t size) {
@@ -117,11 +117,11 @@ bool harmonics(double E, uint64_t size) {
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  if (solver.eigenvalues().minCoeff() < 0)
-    std::cout << E << ":\n"
-              << mat << '\n'
-              << solver.eigenvalues()<< '\n';
-  return solver.eigenvalues().minCoeff() >= 0;
+  //  if (solver.eigenvalues().minCoeff() < 0)
+  //    std::cout << E << ":\n"
+  //              << mat << '\n'
+  //              << solver.eigenvalues()<< '\n';
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool coulomb_single(double E, uint64_t size) {
@@ -133,9 +133,9 @@ bool coulomb_single(double E, uint64_t size) {
   auto mat = mat_single(x, size);
   free(x);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  //  if (solver.eigenvalues().minCoeff() >= 0)
+  //  if (solver.eigenvalues().minCoeff() > -1e-13)
   //    std::cout << E << '\n' << mat << '\n' << solver.eigenvalues() << '\n';
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool coulomb(double E, double sp, uint64_t size) {
@@ -165,7 +165,7 @@ bool coulomb(double E, double sp, uint64_t size) {
   for (int64_t j = 4; j < 2 * size - 1; j += 2) {
     for (int64_t i = 2; i < xlen; i++)
       xp[i][j] = E * xp[i][j - 2] + xp[i - 1][j - 2] - xp[i - 2][j - 2];
-    for (int64_t i = 1; i >= 0; i--)
+    for (int64_t i = 1; i > -1e-13; i--)
       xp[i][j] =
           (2 * (i + 3) * E * xp[i + 2][j] - (j - 2 * i - 5) * xp[i + 1][j]) /
           2 / (i - j + 2);
@@ -184,7 +184,7 @@ bool coulomb(double E, double sp, uint64_t size) {
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
   // std::cout << mat << '\n' << solver.eigenvalues() << '\n';
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool toda(double E, double ex, uint64_t size) {
@@ -213,7 +213,7 @@ bool toda(double E, double ex, uint64_t size) {
     free(xp[i]);
   free(xp);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool toda_single(double E, double ex, uint64_t size) {
@@ -226,7 +226,7 @@ bool toda_single(double E, double ex, uint64_t size) {
   auto mat = mat_single(x, size);
   free(x);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 bool trig_single(double E, double ex, uint64_t size) {
@@ -252,7 +252,7 @@ bool trig_single(double E, double ex, uint64_t size) {
   }
   free(x);
   SelfAdjointEigenSolver<MatrixXd> solver(mat);
-  return solver.eigenvalues().minCoeff() >= 0;
+  return solver.eigenvalues().minCoeff() > -1e-13;
 }
 
 // bool trig(double E, double ex, uint64_t size) {
